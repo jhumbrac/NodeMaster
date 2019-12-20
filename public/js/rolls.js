@@ -1,13 +1,51 @@
-// This page needs to have mathmatical formulas for the dice rolls. I'll list variables here for the different formulas we need, but basically the first number is the number of rolls and the second number is the sides of the die, so 2d6 would be the equivalent of rolling two six-sided dice. --> for the dice do a Math.random function between 1 and the second number.
+/*function initDiceRoll() {
+  const result = Math.floor(Math.random() * 7);
+  if (result >= 4) {
+    console.log('Holy shit that thing is big. You start with a disadvantage.')
+  } else if (result < 4) {
+    console.log(`${monster} is smaller than you. You start with advantage.`)
+  }
+  return result
+};*/
 
-//I think we should try to make the number of dice rolls an argument that can be passed, so if we need to roll 3d6 that we can use the same function as 2d6 or 10d6
+let enemy = {
+  armorClass: 5,
+  health: 200
+}
 
-// 1d4
+let player = {
+  armorClass: 5,
+  health: 100
+}
 
-// 1d6
+var hit;
+var modifier = 0;
 
-// 1d8
+function rollToHit(opponent) {
+  let hitRoll = Math.floor(Math.random() * 21 - modifier);
+  if (hitRoll > opponent.armorClass) {
+    hit = true;
+  } else {
+    hit = false;
+  }
+  return hit;
+}
 
-// 1d12
+function attack(opponent) {
+  var newVar = rollToHit();
+  if (newVar) {
+    var successfulHit = Math.floor(Math.random() * 21);
+    opponent.health -= successfulHit;
+    console.log(`You have hit for ${successfulHit}`);
+    console.log('Health: ', opponent.health)
+    if (opponent.health <= 0) {
+      console.log("Your enemy has been slain!")
+    }
+  } else {
+    console.log('You have missed!');
+  } 
+}
+attack(enemy);
 
-// 1d20
+
+
