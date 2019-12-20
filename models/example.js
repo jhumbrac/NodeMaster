@@ -13,13 +13,11 @@ module.exports = function(sequelize, DataTypes) {
         chs: DataTypes.INTEGER,
         hp: DataTypes.INTEGER,
         xp: DataTypes.INTEGER,
-        ac: DataTypes.INTEGER
+        ac: DataTypes.INTEGER,
+        img: DataTypes.STRING
     });
     let data = fs.readFileSync(__dirname + '/char.json', 'utf8');
     let convertedData = JSON.parse(data);
-    let a = convertedData.torgar;
-    let b = convertedData.kratos;
-    let c = convertedData.ganon;
-    Characters.bulkCreate([a,b,c]).then(result => console.log(result));
+    Characters.bulkCreate(convertedData).then(result => console.log(result));
     return Characters
 };

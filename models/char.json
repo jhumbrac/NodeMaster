@@ -1,5 +1,4 @@
-{
-    "torgar": {
+[{
         "category": "character",
         "name": "torgar",
         "class": "barbarian",
@@ -12,9 +11,10 @@
         "chs": 11,
         "hp": 28,
         "xp": 0,
-        "ac": 14
+        "ac": 14,
+        "img": "../img/human.png"
     },
-    "kratos": {
+    {
         "category": "character",
         "name": "kratos",
         "class": "rogue",
@@ -27,9 +27,10 @@
         "chs": 15,
         "hp": 21,
         "xp": 0,
-        "ac": 14
+        "ac": 14,
+        "img": "../img/dwarf.png"
     },
-    "ganon": {
+    {
         "category": "character",
         "name": "ganon",
         "class": "wizard",
@@ -42,6 +43,87 @@
         "chs": 8,
         "hp": 14,
         "xp": 0,
-        "ac": 12
+        "ac": 12,
+        "img": "../img/elf.png"
+    },
+    {
+        "category": "monster",
+        "name": "archmage",
+        "class": "monster",
+        "race": "humanoid",
+        "str": 10,
+        "dex": 14,
+        "con": 12,
+        "int": 20,
+        "wis": 15,
+        "chs": 16,
+        "hp": 99,
+        "xp": 0,
+        "ac": 12,
+        "img": "../img/archmage.jpeg"
+    },
+    {
+        "category": "monster",
+        "name": "basilisk",
+        "class": "monster",
+        "race": "monster",
+        "str": 16,
+        "dex": 8,
+        "con": 15,
+        "int": 2,
+        "wis": 8,
+        "chs": 7,
+        "hp": 52,
+        "xp": 0,
+        "ac": 12,
+        "img": "../img/basilisk.jpeg"
+    },
+    {
+        "category": "monster",
+        "name": "hell hound",
+        "class": "monster",
+        "race": "monster",
+        "str": 17,
+        "dex": 12,
+        "con": 14,
+        "int": 6,
+        "wis": 13,
+        "chs": 6,
+        "hp": 45,
+        "xp": 0,
+        "ac": 15,
+        "img": "../img/hellhound.jpeg"
+    },
+    {
+        "category": "monster",
+        "name": "orc",
+        "class": "monster",
+        "race": "monster",
+        "str": 16,
+        "dex": 12,
+        "con": 16,
+        "int": 7,
+        "wis": 11,
+        "chs": 10,
+        "hp": 15,
+        "xp": 0,
+        "ac": 13,
+        "img": "../img/orc.jpeg"
+    },
+    {
+        "category": "monster",
+        "name": "skeleton",
+        "class": "monster",
+        "race": "monster",
+        "str": 10,
+        "dex": 14,
+        "con": 15,
+        "int": 6,
+        "wis": 8,
+        "chs": 5,
+        "hp": 13,
+        "xp": 0,
+        "ac": 13,
+        "img": "../img/skeleton.jpeg"
     }
-}
+]
