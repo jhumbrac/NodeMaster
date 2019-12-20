@@ -12,7 +12,8 @@
         "hp": 28,
         "xp": 0,
         "ac": 14,
-        "img": "../img/human.png"
+        "img": "../img/human.png",
+        "isCharacter": true
     },
     {
         "category": "character",
@@ -28,7 +29,8 @@
         "hp": 21,
         "xp": 0,
         "ac": 14,
-        "img": "../img/dwarf.png"
+        "img": "../img/dwarf.png",
+        "isCharacter": true
     },
     {
         "category": "character",
@@ -44,7 +46,8 @@
         "hp": 14,
         "xp": 0,
         "ac": 12,
-        "img": "../img/elf.png"
+        "img": "../img/elf.png",
+        "isCharacter": true
     },
     {
         "category": "monster",
@@ -60,7 +63,8 @@
         "hp": 99,
         "xp": 0,
         "ac": 12,
-        "img": "../img/archmage.jpeg"
+        "img": "../img/archmage.jpeg",
+        "isCharacter": false
     },
     {
         "category": "monster",
@@ -76,7 +80,8 @@
         "hp": 52,
         "xp": 0,
         "ac": 12,
-        "img": "../img/basilisk.jpeg"
+        "img": "../img/basilisk.jpeg",
+        "isCharacter": false
     },
     {
         "category": "monster",
@@ -92,7 +97,8 @@
         "hp": 45,
         "xp": 0,
         "ac": 15,
-        "img": "../img/hellhound.jpeg"
+        "img": "../img/hellhound.jpeg",
+        "isCharacter": false
     },
     {
         "category": "monster",
@@ -108,7 +114,8 @@
         "hp": 15,
         "xp": 0,
         "ac": 13,
-        "img": "../img/orc.jpeg"
+        "img": "../img/orc.jpeg",
+        "isCharacter": false
     },
     {
         "category": "monster",
@@ -124,6 +131,7 @@
         "hp": 13,
         "xp": 0,
         "ac": 13,
-        "img": "../img/skeleton.jpeg"
+        "img": "../img/skeleton.jpeg",
+        "isCharacter": false
     }
 ]
