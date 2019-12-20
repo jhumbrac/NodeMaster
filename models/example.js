@@ -1,6 +1,6 @@
 const fs = require('fs');
 module.exports = function(sequelize, DataTypes) {
-    const Characters = sequelize.define("Character", {
+    const Characters = sequelize.define("Characters", {
         category: DataTypes.STRING,
         name: DataTypes.STRING,
         class: DataTypes.STRING,
@@ -20,5 +20,6 @@ module.exports = function(sequelize, DataTypes) {
     let a = convertedData.torgar;
     let b = convertedData.kratos;
     let c = convertedData.ganon;
-    return Characters.bulkCreate([a,b,c]).then(result => console.log(result));
+    Characters.bulkCreate([a,b,c]).then(result => console.log(result));
+    return Characters
 };

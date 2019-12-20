@@ -4,23 +4,6 @@ var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
 
-Characters.create({
-    name: "torgar",
-    class: "barbarian",
-    race: "human",
-    str: 16,
-    dex:14,
-    con: 15,
-    int: 9,
-    wis: 13,
-    chs: 11,
-    hp: 28,
-    xp:0,
-    ac:14 
-  }
-).then ( result => console.log(result) );
-
-
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveExample: function(example) {
@@ -35,7 +18,7 @@ var API = {
   },
   getExamples: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/characters",
       type: "GET"
     });
   },
