@@ -1,0 +1,16 @@
+[{
+    "torgar": {
+        "name": "torgar",
+        "class": "barbarian",
+        "race": "human",
+        "str": 16,
+        "dex": 14,
+        "con": 15,
+        "int": 9,
+        "wis": 13,
+        "chs": 11,
+        "hp": 28,
+        "xp": 0,
+        "ac": 14
+    }
+}]
