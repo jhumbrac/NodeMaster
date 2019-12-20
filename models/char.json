@@ -1,5 +1,6 @@
 {
     "torgar": {
+        "category": "character",
         "name": "torgar",
         "class": "barbarian",
         "race": "human",
@@ -14,6 +15,7 @@
         "ac": 14
     },
     "kratos": {
+        "category": "character",
         "name": "kratos",
         "class": "rogue",
         "race": "dwarf",
@@ -28,6 +30,7 @@
         "ac": 14
     },
     "ganon": {
+        "category": "character",
         "name": "ganon",
         "class": "wizard",
         "race": "elf",

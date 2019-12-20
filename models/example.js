@@ -1,6 +1,7 @@
 const fs = require('fs');
 module.exports = function(sequelize, DataTypes) {
     const Characters = sequelize.define("Character", {
+        category: DataTypes.STRING,
         name: DataTypes.STRING,
         class: DataTypes.STRING,
         race: DataTypes.STRING,
