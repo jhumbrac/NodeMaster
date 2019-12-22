@@ -1,4 +1,3 @@
-const fs = require('fs');
 module.exports = function(sequelize, DataTypes) {
     const Characters = sequelize.define("Characters", {
         category: DataTypes.STRING,
@@ -16,8 +15,5 @@ module.exports = function(sequelize, DataTypes) {
         ac: DataTypes.INTEGER,
         img: DataTypes.STRING
     });
-    let data = fs.readFileSync(__dirname + '/char.json', 'utf8');
-    let convertedData = JSON.parse(data);
-    Characters.bulkCreate(convertedData).then(result => console.log(result));
     return Characters
 };
