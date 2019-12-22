@@ -31,12 +31,12 @@ module.exports = function(app) {
 
   app.get("/character/:category", function(req, res) {
     db.Characters.findAll({
-      where: { category: "monster" }
+      where: { category: req.params.category }
     }).then(function(data) {
-      res.render("example", {
+      res.render("category", {
         characters: data
       });
-      console.log(data);
+      console.log("Monsters are: "+data);
     });
   });
 
