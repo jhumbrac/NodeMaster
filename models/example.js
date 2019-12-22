@@ -13,7 +13,9 @@ module.exports = function(sequelize, DataTypes) {
         hp: DataTypes.INTEGER,
         xp: DataTypes.INTEGER,
         ac: DataTypes.INTEGER,
-        img: DataTypes.STRING
+        img: DataTypes.STRING,
+        isCharacter: DataTypes.BOOLEAN
+
     });
     return Characters
 };

@@ -8,6 +8,14 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/character/:category", function(req, res) {
+    db.Characters.findAll({ where: { category: req.params.category } }).then(
+      function(data) {
+        res.json(data);
+      }
+    );
+  });
+
   // Create a new example
   app.post("/api/examples", function(req, res) {
     db.Characters.create(req.body).then(function(dbExample) {
