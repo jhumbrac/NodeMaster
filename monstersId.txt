@@ -1,0 +1,9 @@
+archmage index 28
+
+basilisk index 40
+
+hell hound index 162
+
+orc 216
+
+skeleton 259

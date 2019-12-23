@@ -48,7 +48,7 @@ module.exports = function(app) {
     db.Characters.findOne({
       where: { id: req.params.id }
     }).then(function(data) {
-      res.render("example", {
+      res.render("game", {
         characters: data
       });
       let neededData = {
