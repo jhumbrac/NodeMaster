@@ -8,7 +8,7 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     db.Characters.findAll({}).then(function(data) {
       res.render("index", {
-        msg: "Welcome!",
+        msg: "Node Master 2",
         characters: data
       });
     });
