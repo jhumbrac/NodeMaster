@@ -1,1 +1,1 @@
-{"name":"kratos","class":"rogue","race":"dwarf","str":8,"dex":17,"con":13,"int":12,"wis":10,"chs":15,"hp":21,"xp":0,"ac":14,"img":"../img/dwarf.png"}
+{"name":"ganon","class":"wizard","race":"elf","str":10,"dex":15,"con":14,"int":15,"wis":13,"chs":8,"hp":14,"xp":0,"ac":12,"img":"../img/elf.png","isCharacter":true}
