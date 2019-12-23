@@ -1,13 +1,64 @@
-// This page needs to have mathmatical formulas for the dice rolls. I'll list variables here for the different formulas we need, but basically the first number is the number of rolls and the second number is the sides of the die, so 2d6 would be the equivalent of rolling two six-sided dice. --> for the dice do a Math.random function between 1 and the second number.
+let enemy = {
+  armorClass: 10,
+  attackPower: 25,
+  health: 200,
+  displayTitle: 'Enemy'
+}
 
-//I think we should try to make the number of dice rolls an argument that can be passed, so if we need to roll 3d6 that we can use the same function as 2d6 or 10d6
+let player = {
+  armorClass: 5,
+  attackPower: 15,
+  health: 100,
+  displayTitle: 'Player'
+}
 
-// 1d4
+var hit;
+var modifier = 0;
 
-// 1d6
+function determineInitiative() {
+  let result = Math.floor(Math.random() * 100) > 50;
+  result ? console.log('Holy shit that thing is big. You start with a disadvantage.') : 
+  console.log(`Your enemy is smaller than you. You start with advantage.`);
+  return result;
+}
 
-// 1d8
+function rollDoesHit(opponent) {
+    return opponent.armorClass < Math.floor(Math.random() * 21 - modifier);
+}
 
-// 1d12
+function attack(attacker, opponent) {
+    if(rollDoesHit(opponent)) {
+      let damageRoll = Math.floor(Math.random() * attacker.attackPower);
+      opponent.health -= damageRoll;
+      console.log(`${attacker.displayTitle} has hit for ${damageRoll}`);
+      console.log('Health: ', opponent.health);
+      if (opponent.health <= 0) {
+        console.log(`${opponent.displayTitle} has been slain!`);
+      }
+    } else {
+      console.log(`${attacker.displayTitle} has missed.`)
+    }
+};
 
-// 1d20
+let playerGoesFirst = determineInitiative();
+let attacker = playerGoesFirst ? player : enemy;
+let opponent = playerGoesFirst ? enemy : player;
+
+function handleAttack () {
+  attack(attacker, opponent);
+  let temp = opponent;
+  opponent = attacker;
+  attacker = temp;
+}
+
+const timer = setInterval(function () {
+  handleAttack();
+  if(attacker.health < 0 || opponent.health < 0){
+    clearInterval(timer);
+  }
+}, 1000);
+
+
+
+
+

@@ -1,0 +1,16 @@
+        </div>
+                <div class="card-body">
+          <h5 class="card-title">Category</h5>
+        <ul id="example-list" class="list-group">
+          {{#each characters}}
+          <li data-id="{{this.id}}" class="list-group-item">
+              <p>{{this.category}}</p>
+            <a href="example/{{this.id}}">{{this.name}}</a>
+            <img src="{{this.img}}" alt="character pic">
+            <button class="btn btn-danger float-right delete">ｘ</button>
+          </li>
+          {{/each}}
+        </div>
+<script>
+  console.log(this.id);
+</script>

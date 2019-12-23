@@ -18,10 +18,18 @@ var API = {
   },
   getExamples: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/characters",
       type: "GET"
     });
   },
+  // getCharacter: function(id) {
+  //   return $.ajax({
+  //     url: "api/character/example/" + id,
+  //     type: "GET",
+  //     data: 
+  //   });
+  // },
+
   deleteExample: function(id) {
     return $.ajax({
       url: "api/examples/" + id,
