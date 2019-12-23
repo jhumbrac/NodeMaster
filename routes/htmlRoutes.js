@@ -51,7 +51,7 @@ module.exports = function(app) {
       res.render("game", {
         characters: data
       });
-      let neededData = {
+      var neededData = {
         name: data.name,
         class: data.class,
         race: data.race,
@@ -64,17 +64,34 @@ module.exports = function(app) {
         hp: data.hp,
         xp: data.xp,
         ac: data.ac,
-        img: data.img
+        img: data.img,
+        isCharacter: data.isCharacter
       };
-      let dataReady = JSON.stringify(neededData);
-      fs.writeFile ("selectedCharacter.json", dataReady, function(err) {
-        if (err) throw err;
-        console.log('complete');
-        }
-      );   
+      if (neededData.isCharacter === true) {
+        fs.writeFile(
+          "selectedCharacter.json",
+          JSON.stringify(neededData),
+          function(err) {
+            if (err) {
+              throw err;
+            }
+            console.log("complete");
+          }
+        );
+      } else {
+        fs.writeFile(
+          "selectedMonster.json",
+          JSON.stringify(neededData),
+          function(err) {
+            if (err) {
+              throw err;
+            }
+            console.log("complete");
+          }
+        );
+      }
     });
   });
-
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
