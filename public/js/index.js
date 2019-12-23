@@ -22,6 +22,14 @@ var API = {
       type: "GET"
     });
   },
+  // getCharacter: function(id) {
+  //   return $.ajax({
+  //     url: "api/character/example/" + id,
+  //     type: "GET",
+  //     data: 
+  //   });
+  // },
+
   deleteExample: function(id) {
     return $.ajax({
       url: "api/examples/" + id,
