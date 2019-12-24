@@ -1,32 +1,18 @@
+<div id="home">
   <div class="titlePage">
-    <h1>Node Master 2</h1>
+    <h1>{{msg}}</h1>
     <h2>This is our Home Page!</h2>
     <p id="startGame">Hit ENTER to begin</p>
   </div>
   <div class="charOverlay">
     <h2>Choose your hero</h2>
     {{#each characters}}
-      {{#unless isMonster}}
-      <div class="selectChar">
-        <img src="{{img}}" alt="character pic">
-        <div>
-            <h3>{{name}}</h3>
-            <h4>{{race}}</h4>
-            <h4>{{class}}</h4>
-            <ul class="stats clearfix">
-                <li><span>STR:</span>{{str}}</li>
-                <li><span>DEX:</span>{{dex}}</li>
-                <li><span>CON:</span>{{con}}</li>
-                <li><span>INT:</span>{{int}}</li>
-                <li><span>WIS:</span>{{wis}}</li>
-                <li><span>CHA:</span>{{cha}}</li>
-            </ul>
-            <ul class="clearfix">
-                <li><span>AC:</span>{{ac}}</li>
-                <li><span>HP:</span>{{hp}}</li>
-            </ul>
-        </div>
-      </div>
-      {{/unless}}
+      {{#if isCharacter}}
+        {{> portraits/charSelect}}
+      {{/if}}
     {{/each}}
   </div>
+</div>
+
+
+

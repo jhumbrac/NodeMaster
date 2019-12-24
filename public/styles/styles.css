@@ -16,6 +16,27 @@ body {
     background-repeat:no-repeat;
     color:#fff;
 }
+<<<<<<< HEAD
+#startGame {
+    position: absolute;
+    bottom: 2em;
+    left: 50%;
+    margin: 0;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: fadeIn 1.5s;
+    animation-iteration-count: infinite;
+}
+@keyframes fadeIn {
+  0% { color: rgba(255,255,255,1) }
+  50% { color: rgba(255,255,255,.5) }
+  100% { color: rgba(255,255,255,1) }
+}
+.titlePage {
+    margin: 12em 0 0 4em;
+}
+=======
+>>>>>>> 09d75f82336f2ffa99f3ca950ac54f96fccf6f2c
 h1 {
     color: rgb(241, 90, 34);
     font-family: 'Yatra One', cursive;
