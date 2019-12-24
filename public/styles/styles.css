@@ -16,7 +16,6 @@ body {
     background-repeat:no-repeat;
     color:#fff;
 }
-<<<<<<< HEAD
 #startGame {
     position: absolute;
     bottom: 2em;
@@ -35,8 +34,6 @@ body {
 .titlePage {
     margin: 12em 0 0 4em;
 }
-=======
->>>>>>> 09d75f82336f2ffa99f3ca950ac54f96fccf6f2c
 h1 {
     color: rgb(241, 90, 34);
     font-family: 'Yatra One', cursive;

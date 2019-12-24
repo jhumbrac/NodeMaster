@@ -11,7 +11,7 @@ function endGame() {
     console.log('your game has ended');
 }
 
-<label>
+{/* <label>
   <input type="radio" class="nes-radio" name="answer" checked />
   <span>Fight</span>
 </label>
@@ -19,4 +19,4 @@ function endGame() {
 <label>
   <input type="radio" class="nes-radio" name="answer" />
   <span>Run</span>
-</label>
+</label> */}
