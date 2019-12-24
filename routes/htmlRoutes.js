@@ -19,6 +19,7 @@ module.exports = function(app) {
         msg: "Node Master 2",
         characters: data
       });
+      // console.log(data);
     });
   });
 
@@ -33,18 +34,18 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/character/:category", function(req, res) {
-    db.Characters.findAll({
-      where: { category: req.params.category }
-    }).then(function(data) {
-      res.render("category", {
-        characters: data
-      });
-      console.log("Monsters are: " + data);
-    });
-  });
+  // app.get("/character/:category", function(req, res) {
+  //   db.Characters.findAll({
+  //     where: { category: req.params.category }
+  //   }).then(function(data) {
+  //     res.render("category", {
+  //       characters: data
+  //     });
+  //     console.log("Monsters are: " + data);
+  //   });
+  // });
 
-  app.get("/character/example/:id", function(req, res) {
+  app.get("/character/:id", function(req, res) {
     db.Characters.findOne({
       where: { id: req.params.id }
     }).then(function(data) {

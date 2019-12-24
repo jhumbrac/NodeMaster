@@ -3,6 +3,15 @@ $(document).on("keydown", event =>{
        $('body').addClass('charSelect');
     });
 
-$(document).on('click', '.selectChar', event=>{
-   
-})
+$('.selectChar').on('click', function(event) {
+    var id = $(this).data("id");
+    console.log(id);
+    $.ajax("/character/" + id, {
+        type: "GET",
+    }).then(
+        function() {
+            console.log("To the game page");
+        }
+    );
+
+});
