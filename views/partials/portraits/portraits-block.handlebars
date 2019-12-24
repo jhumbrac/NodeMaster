@@ -1,41 +1,8 @@
-<div class="selectChar">
-    <img src="{{img}}" alt="character pic">
+<div class="charInfo">
+    <img src="{{img}}" alt="{{name}} portrait">
     <div>
         <h3>{{name}}</h3>
-        <h4>{{race}}</h4>
-        <h4>{{class}}</h4>
-        <ul class="stats clearfix">
-            <li><span>STR:</span> {{str}}</li>
-            <li><span>DEX:</span> {{dex}}</li>
-            <li><span>CON:</span> {{con}}</li>
-            <li><span>INT:</span> {{int}}</li>
-            <li><span>WIS:</span> {{wis}}</li>
-            <li><span>CHA:</span> {{chs}}</li>
-        </ul>
-        <ul class="clearfix">
-            <li><span>AC:</span> {{ac}}</li>
-            <li><span>HP:</span> {{hp}}</li>
-        </ul>
+        <p>HP: <progress value="{{hp}}" max="{{hp}}"></p>
+        <p>XP: <progress value="{{xp}}" max="2000"></p>
     </div>
 </div>
-
-{{!-- <div class="selectChar">
-    <img src="{{characters.img}}" alt="character pic">
-    <div>
-        <h2>{{characters.name}}</h2>
-        <h3>{{characters.class}}</h3>
-        <h4>{{characters.race}}</h4>
-        <ul class="stats">
-            <li>STR: {{characters.str}}</li>
-            <li>DEX: {{characters.dex}}</li>
-            <li>CON: {{characters.con}}</li>
-            <li>INT: {{characters.int}}</li>
-            <li>WIS: {{characters.wis}}</li>
-            <li>CHA: {{characters.chs}}</li>
-        </ul>
-        <ul>
-            <li>AC: {{characters.ac}}</li>
-            <li>HP: {{characters.hp}}</li>
-        </ul>
-    </div>
-</div> --}}

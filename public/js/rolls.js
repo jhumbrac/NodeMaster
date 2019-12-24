@@ -3,17 +3,24 @@ let enemy = {
   attackPower: 25,
   health: 200,
   displayTitle: 'Enemy'
-}
-
+};
 let player = {
   armorClass: 5,
   attackPower: 15,
   health: 100,
   displayTitle: 'Player'
-}
-
+};
 var hit;
 var modifier = 0;
+
+function rollDice(tempDice) {
+  let tempDice = '2d6';
+  let regexp = /(?<num>[0-9])(?:d)(?<sided>[0-9])/;
+  let num;
+  let sided;
+  let roll = Math.floor(Math.random());
+  
+}
 
 function determineInitiative() {
   let result = Math.floor(Math.random() * 100) > 50;
