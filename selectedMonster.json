@@ -1,1 +1,16 @@
-{"name":"skeleton","class":"monster","race":"monster","str":10,"dex":14,"con":15,"int":6,"wis":8,"chs":5,"hp":13,"xp":0,"ac":13,"img":"../img/skeleton.jpeg","isCharacter":false}
+{
+    "name": "skeleton",
+    "class": "monster",
+    "race": "monster",
+    "str": 10,
+    "dex": 14,
+    "con": 15,
+    "int": 6,
+    "wis": 8,
+    "chs": 5,
+    "hp": 13,
+    "xp": 0,
+    "ac": 13,
+    "img": "../img/skeleton.jpeg",
+    "isCharacter": false
+}
