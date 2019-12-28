@@ -22,6 +22,12 @@ module.exports = function(app) {
       // console.log(data);
     });
   });
+  app.get("/game.html", (req, res)=>{
+    let rawData = fs.readFileSync("selectedCharacter.json", "utf8");
+    let Hero = JSON.parse(rawData);
+    res.render('game', {Hero});
+    return Hero;
+  })
 
   // Load example page and pass in an example by id
   app.get("/example/:id", function(req, res) {
@@ -33,6 +39,13 @@ module.exports = function(app) {
       });
     });
   });
+  // app.get('/game.html', (req, res)=>{
+  //   res.render('game');
+  //   let rawChar = fs.readFileSync('selectedCharacter.json', 'utf8');
+  //   let char = JSON.parse(rawChar);
+  //   console.log(char);
+  // });
+
 
   // app.get("/character/:category", function(req, res) {
   //   db.Characters.findAll({
