@@ -6,10 +6,10 @@ module.exports = function(app) {
   app.get("/bulk/create", function(req, res) {
     var rawData = fs.readFileSync("./models/char.json", "utf8");
     var convertedData = JSON.parse(rawData);
-    console.log(convertedData);
     db.Characters.bulkCreate(convertedData).then(function() {
       res.end("Created");
     });
+    
   });
 
   // Load index page
@@ -19,7 +19,7 @@ module.exports = function(app) {
         msg: "Node Master 2",
         characters: data
       });
-      // console.log(data);
+      console.log("Data: " + data);
     });
   });
   app.get("/game.html", (req, res)=>{
