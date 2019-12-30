@@ -141,6 +141,7 @@ $(document).ready(function () {
    url: "http://www.dnd5eapi.co/api/monsters/" + random,
    method: "GET"
  }).then(function(res) {
+  
    const selectedMonster = {
          name: res.name,
          str: res.strength,
@@ -151,7 +152,7 @@ $(document).ready(function () {
          chs: res.charisma,
          hp: res.hit_points,
          ac: res.armor_class,
-         img: "../img/jpeg"
+         img: `/img/${res.type}.png`
       };
    console.log("The Monster is " + JSON.stringify(selectedMonster));
  });
