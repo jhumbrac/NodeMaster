@@ -2,7 +2,7 @@
         "category": "character",
         "name": "torgar",
         "class": "barbarian",
-        "race": "human",
+        "race": "dwarf",
         "str": 16,
         "dex": 14,
         "con": 15,
@@ -12,14 +12,14 @@
         "hp": 28,
         "xp": 0,
         "ac": 14,
-        "img": "../img/human.png",
+        "img": "../img/dwarf.png",
         "isCharacter": true
     },
     {
         "category": "character",
         "name": "kratos",
         "class": "rogue",
-        "race": "dwarf",
+        "race": "human",
         "str": 8,
         "dex": 17,
         "con": 13,
@@ -29,7 +29,7 @@
         "hp": 21,
         "xp": 0,
         "ac": 14,
-        "img": "../img/dwarf.png",
+        "img": "../img/human.png",
         "isCharacter": true
     },
     {
