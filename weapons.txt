@@ -1,0 +1,28 @@
+Wizard
+- magic missle
+#190
+3 * (1d4 + 1) + 1 dart for each level
+
+- fireball
+#119
+4d6 + 1d6 for each level (8d6 then half for dex saving throw?)
+
+
+Rogue
+- rapier
+equipment #26
+1d8
+- short sword
+equipment #28
+1d6
+- dagger
+equipment #2
+1d4
+
+Barbarian
+- Maul
+equipment #23
+2d6
+- War hammer
+equipment #
+1d8 or 1d10 (crushing)
