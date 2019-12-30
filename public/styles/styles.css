@@ -154,7 +154,11 @@ h1 {
     width: 66.66%;
     height: 25%;
     border: 1px solid;
+    padding:4em;
     z-index: 2;
+}
+.textBlock label {
+    display:block;
 }
 .clearfix:after {
     content:"";
