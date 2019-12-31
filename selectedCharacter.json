@@ -1,1 +1,1 @@
-{"name":"torgar","class":"barbarian","race":"human","str":16,"dex":14,"con":15,"int":9,"wis":13,"chs":11,"hp":28,"xp":0,"ac":14,"img":"../img/human.png","isCharacter":true}
+{"name":"torgar","class":"barbarian","race":"dwarf","str":16,"dex":14,"con":15,"int":9,"wis":13,"chs":11,"hp":28,"xp":0,"ac":14,"img":"../img/dwarf.png","isCharacter":true}
