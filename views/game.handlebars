@@ -1,16 +1,11 @@
 <div id="game">
     {{> portraits/portraits-block}}
-    <div class="roomDisplay">
+    <div id="roomDisplay" class="room">
         {{!-- {{> portraits/monsters-block}} --}}
     </div>
-    <div class="textBlock">
-        <label>
-            <input type="radio" class="nes-radio" name="answer" id="fight" checked />
-            <span>Fight</span>
-        </label>
-        <label>
-            <input type="radio" class="nes-radio" name="answer" />
-            <span>Run</span>
-        </label>
+    <div id="textBlock">
+        
     </div>
+    <audio autoplay loop preload id="roomScore" src="audio/roomScore.wav" type="audio/wav"></audio>
+    <audio loop preload id="battleScore" src="audio/battleScore.wav" type="audio/wav"></audio>
 </div>

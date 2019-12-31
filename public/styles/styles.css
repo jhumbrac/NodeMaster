@@ -62,10 +62,17 @@ h1 {
 }
 .selectChar {
     width: calc(33.33% - 12px);
+    border-bottom: .25em solid rgba(0,0,0,0);
     max-width: 20em;
-    display: inline-block;
+    display: none;
     vertical-align: bottom;
     padding: 2em;
+}
+.selectChar:nth-of-type(1), .selectChar:nth-of-type(2), .selectChar:nth-of-type(3) {
+    display:inline-block;
+}
+.selectChar:hover, .selectChar:focus {
+    border-bottom: .25em solid white;
 }
 .selectChar img {
     width: 50%;
@@ -97,10 +104,7 @@ h1 {
     display:inline-block;
     text-transform: capitalize;
 }
-.selectChar { display:none; }
-.selectChar:nth-of-type(1), .selectChar:nth-of-type(2), .selectChar:nth-of-type(3) {
-    display:inline-block;
-}
+
 
 /* Game UI */
 .charInfo {
@@ -131,35 +135,124 @@ h1 {
     text-transform: capitalize;
     font-size: 2em;
 }
-.charInfo progress {
-    height: 2em;
+.charInfo progress, .monster progress {
+    height: 1.25em;
     width: 100%;
-    margin: .25em 0 0;
-    background: orange;
+    margin: 5px -6px;
+    background: black;
 }
-.roomDisplay {
-    background: url(../img/room.png) center center no-repeat;
-    background-size: cover;
+#roomDisplay {
     position: fixed;
     top: 0;
     width: 100%;
     left: 0;
-    height: 75%;
+    height: 66.66%;
     z-index: 1;
 }
-.textBlock {
+.room {
+    background: url(../img/room.png) center center no-repeat;
+    background-size: cover;
+}
+.room1 {
+    background: url(../img/room1.jpg) center center no-repeat;
+    background-size: cover;
+}
+.room2 {
+    background: url(../img/room2.jpg) center center no-repeat;
+    background-size: cover;
+}
+.room3 {
+    background: url(../img/room3.jpg) center center no-repeat;
+    background-size: cover;
+}
+.room4 {
+    background: url(../img/room4.jpg) center center no-repeat;
+    background-size: cover;
+}
+.room5 {
+    background: url(../img/room5.jpg) center center no-repeat;
+    background-size: cover;
+}
+.room6 {
+    background: url(../img/room6.jpg) center center no-repeat;
+    background-size: cover;
+}
+.treasureRoom {
+    background: url(../img/treasureRoom.jpg) center center no-repeat;
+    background-size:cover;
+}
+.outdoors {
+    background: url(../img/outdoors.jpg) center center no-repeat;
+    background-size:cover;
+}
+.dead {
+    background: url(../img/dead.jpg) center center no-repeat;
+    background-size:cover;
+    height: 100vh;
+    position:relative;
+}
+.dead h1 {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+}
+#textBlock {
+    background:black;
+    border: 1px solid;
+    height: 33.33%;
+    padding: 2em 4em;
     position: fixed;
     bottom: 0;
     right: 0;
     width: 66.66%;
-    height: 25%;
-    border: 1px solid;
-    padding:4em;
     z-index: 2;
 }
-.textBlock label {
+#textBlock label {
     display:block;
+    margin: 1em 0 0 -1em;
 }
+#textBlock span {
+    display: inline-block;
+    padding: 0 0 .5em;
+}
+
+.monster {
+    position: absolute;
+    right: 5%;
+    bottom: 0em;
+    top: 2em;
+}
+.monster h2 {
+    font-size:2em;
+    letter-spacing:1px;
+}
+/* .monster h2 {
+    color: black;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+} */
+.monster img {
+    height: 100%;
+    float: right;
+}
+.monsterStats {
+    position: absolute;
+    bottom: 2em;
+    width: 100%;
+}
+#titleScore {
+    position: fixed;
+    top: 0;
+    right: -16em;
+}
+#battleScore {
+    position: relative;
+    z-index: 1;
+}
+
 .clearfix:after {
     content:"";
     clear:both;
