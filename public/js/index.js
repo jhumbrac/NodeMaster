@@ -23,11 +23,14 @@ $(document).ready(function () {
     </label>`;
   let roomScore = $('#roomScore');
   let battleScore = $('#battleScore');
-  let randomMonster = Math.floor(Math.random() * 325);
+  // let randomMonster = Math.floor(Math.random() * 325);
   function fightMsg(msg) {
     return $(`<p>${msg}</p>`);
   }
-
+  function randomBg() {
+    let k = rollDice('1d5');
+    $('#roomDisplay').attr('class', `room${k}`);
+  }
   function rollDice(dice) {
     const regexp = /(?<num>[0-9])(?:d)(?<sided>[0-9]*)/;
     let { groups: { num, sided } } = regexp.exec(dice);
@@ -126,16 +129,21 @@ $(document).ready(function () {
     $('#textBlock').html('');
     $('#textBlock').append(fightMsg(msg)).append(fight);
   };
+  function endBattle(){
+    battleScore.pause();
+    roomScore.play();
+    $('#roomDisplay').html('');
+  }
   function endGame() {
-    msg = `You flee the battle. You are a coward`;
-    $('#textBlock').html(fightMsg(msg));
     $('#game').html('');
     $('#game').attr('class', 'dead').append($('<h1>You have died</h1>'));
   };
   function encounter() {
+    let randomMonster = rollDice('1d325');
     $.ajax({
       url: "http://www.dnd5eapi.co/api/monsters/" + randomMonster,
-      method: "GET"
+      method: "GET",
+      error: 'url failed'
     }).then(function (res) {
       enemy = {
         name: res.name,
@@ -197,9 +205,9 @@ $(document).ready(function () {
   });
   $(document).on('click', '#openDoor', event=>{
     roomScore[0].pause();
+    randomBg();
     encounter();
   });
-
   $.ajax("/api/selectedChar", {
     type: "GET"
   }).then(res => {
