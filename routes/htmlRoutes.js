@@ -39,6 +39,12 @@ module.exports = function(app) {
       });
     });
   });
+  app.get("/monsters", function(req, res) {
+    let monsterData = fs.readFileSync("./models/monsters.json", "utf8");
+    let convertData = JSON.parse(monsterData);
+    res.send(convertData)
+  });
+
   // app.get('/game.html', (req, res)=>{
   //   res.render('game');
   //   let rawChar = fs.readFileSync('selectedCharacter.json', 'utf8');
