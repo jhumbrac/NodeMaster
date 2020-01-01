@@ -140,22 +140,24 @@ $(document).ready(function () {
   };
   function encounter() {
     let randomMonster = rollDice('1d325');
-    $.ajax({
-      url: "http://www.dnd5eapi.co/api/monsters/" + randomMonster,
-      method: "GET",
-      error: 'url failed'
+    console.log(randomMonster);
+    $.ajax("/monsters", {
+      type: "GET",
     }).then(function (res) {
+      // console.log(res[1]);
+      let selectedOne = res[randomMonster]
+      console.log(selectedOne)
       enemy = {
-        name: res.name,
-        str: res.strength,
-        dex: res.dexterity,
-        con: res.constitution,
-        int: res.intelligence,
-        wis: res.wisdom,
-        chs: res.charisma,
-        hp: res.hit_points,
-        maxHp: res.hit_points,
-        ac: res.armor_class,
+        name: selectedOne.name,
+        str: selectedOne.strength,
+        dex: selectedOne.dexterity,
+        con: selectedOne.constitution,
+        int: selectedOne.intelligence,
+        wis: selectedOne.wisdom,
+        chs: selectedOne.charisma,
+        hp: selectedOne.hit_points,
+        maxHp: selectedOne.hit_points,
+        ac: selectedOne.armor_class,
         //img: `../img/${res.type}.png`
         img: `../img/orc.png`
       };
@@ -211,6 +213,7 @@ $(document).ready(function () {
   $.ajax("/api/selectedChar", {
     type: "GET"
   }).then(res => {
+    console.log(res)
     player = {
       name: res.name,
       str: res.str,
