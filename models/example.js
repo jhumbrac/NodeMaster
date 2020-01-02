@@ -14,7 +14,8 @@ module.exports = function(sequelize, DataTypes) {
         xp: DataTypes.INTEGER,
         ac: DataTypes.INTEGER,
         img: DataTypes.STRING,
-        isCharacter: DataTypes.BOOLEAN
+        isCharacter: DataTypes.BOOLEAN,
+        lvl: DataTypes.INTEGER,
 
     });
     return Characters
