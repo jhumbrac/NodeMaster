@@ -1,4 +1,47 @@
 $(document).ready(function () {
+  let barbarians =[
+    {
+    attack_name:"Controlled Swing",
+    attack_bonus: 0,
+    damage_dice:"2d6",
+    damage_bonus: 0
+  },
+  {
+    attack_name:"Wild Swing",
+    attack_bonus: 0,
+    damage_dice:"2d8",
+    damage_bonus: 0
+  }];
+let rogues = [
+  {
+    attack_name:"Imbrocatta",
+    attack_bonus: 0,
+    damage_dice:"2d8",
+    damage_bonus: 0
+  },
+  {
+    attack_name:"Back Stab",
+    attack_bonus: 0,
+    damage_dice:"2d8",
+    damage_bonus: 0
+  }
+]
+let wizards = [
+  {
+    attack_name:"Magic Missle",
+    attack_bonus: 0,
+    damage_dice:"3d4",
+    damage_bonus: 3
+
+  },
+  {
+    attack_name:"Fireball",
+    attack_bonus: 0,
+    damage_dice:"4d6",
+    damage_bonus: 0
+  }
+]
+
   const look = [
     "As you scan the room, you can barely makeout the outline of a large wooden door on the opposite side of the chamber.",
 
@@ -177,17 +220,27 @@ $(document).ready(function () {
     $('#game').attr('class', 'dead').append($('<h1>You have died</h1>'));
   };
   function encounter() {
-    let randomMonster = rollDice('1d24');
+    let randomMonster = rollDice('1d41');
     console.log(randomMonster);
     $.ajax("/monsters", {
       type: "GET",
     }).then(function (monsters) {
       console.log(monsters.map(o => o.size))
       var tinyMonsters = monsters.filter(o => o.size === "Tiny");
-      console.log(tinyMonsters);
+      var smallMonsters = monsters.filter(o => o.size === "Small");
+      var mediumMonsters = monsters.filter(o => o.size === "Medium");
+      var largeMonsters = monsters.filter(o => o.size === "Large");
+      var hugeMonsters = monsters.filter(o => o.size === "Huge");
+
+      console.log(tinyMonsters,smallMonsters,mediumMonsters,largeMonsters,hugeMonsters);
       // console.log(res[1]);
-      let selectedOne = tinyMonsters[randomMonster]
-      console.log("Monster size:  " + selectedOne.size)
+      let selectedOne = mediumMonsters[randomMonster]
+      console.log("Monster size:  " + selectedOne.size);
+      let actionName = selectedOne.actions[1].name;
+    let attackBonus = selectedOne.actions[1].attack_bonus;
+    let damageDice = selectedOne.actions[1].damage[0].damage_dice;
+    let damageBonus = selectedOne.actions[1].damage[0].damage_bonus; 
+    console.log("Monster Attack: "+actionName,attackBonus,damageDice,damageBonus);
       enemy = {
         name: selectedOne.name,
         str: selectedOne.strength,
@@ -200,8 +253,14 @@ $(document).ready(function () {
         maxHp: selectedOne.hit_points,
         ac: selectedOne.armor_class,
         //img: `../img/${res.type}.png`
-        img: `../img/monsters/orc.png`
+        img: `../img/monsters/orc.png`,
+        attack_name:actionName,
+        attack_bonus: attackBonus,
+        damage_dice:damageDice,
+        damage_bonus:damageBonus
       };
+      console.log("Monster Attack: "+enemy.attack_name,enemy.attack_bonus,enemy.damage_dice,enemy.damage_bonus);
+
       console.log("The Monster is " + JSON.stringify(enemy));
       msg = `The ${enemy.name} is upon you, prepare for battle!`;
       let $monster = `<div class="monster">
@@ -253,7 +312,7 @@ $(document).ready(function () {
   $.ajax("/api/selectedChar", {
     type: "GET"
   }).then(res => {
-    console.log(res)
+    console.log(res);
     player = {
       name: res.name,
       str: res.str,
@@ -266,9 +325,29 @@ $(document).ready(function () {
       ac: res.ac,
       img: "../img/jpeg",
       lvl: res.lvl,
-      xp: 0
+      xp: 0,
     }
-    console.log(player);
+    switch ( res.class ){
+      case 'barbarian':
+        player.att1 = barbarians[0];
+        player.att2 = barbarians[1];
+        break;
+      case 'rogue':
+          player.att1 = rogues[0];
+          player.att2 = rogues[1];
+         break;
+      case 'wizard':
+          player.att1 = wizards[0];
+          player.att2 = wizards[1];
+        break;
+  
+      default:
+        console.log('failed');
+        break;
+    }
+    console.log('1: ', player.att1);
+    console.log('2: ', player.att2)
+    
     return player;
   });
 
