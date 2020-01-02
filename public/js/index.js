@@ -25,7 +25,112 @@ $(document).ready(function () {
 
     "You hear a soft voice whisper in your ear - 'Win and you will be rewarded with riches beyond your wildest dreams. Lose and die."
   ];
+  const credits = `<h2>CREDITS</h2>
+  
+  <h3 class="credit-titles">GAME DIRECTOR</h3>
+  <p class="credit-names">Zack White</p>
 
+  <h3 class="credit-titles">PROJECT MANAGER</h3>
+  <p class="credit-names">Zack White</p>
+
+  <h3 class="credit-titles">SCRIPT DIRECTOR</h3>
+  <p class="credit-names">Zack White</p>
+
+  <h3 class="credit-titles">TALENT DIRECTOR</h3>
+  <p class="credit-names">Zack White</p>
+
+  <h3 class="credit-titles">ADDITIONAL HELP FROM</h3>
+  <p class="credit-names">Michael Robil</p>
+  <p class="credit-names">John Humbracht</p>
+  <p class="credit-names">Austin Williams</p>
+
+  <h3 class="credit-titles">LEAD ARTIST</h3>
+  <p class="credit-names">Alek</p>
+
+  <h3 class="credit-titles">JUNIOR ARTIST</h3>
+  <p class="credit-names">Alek</p>
+
+  <h3 class="credit-titles">LEAD LIGHTING ARTIST</h3>
+  <p class="credit-names">Devin Mccracken</p>
+
+  <h3 class="credit-titles">RECORDING ENGINEER</h3>
+  <p class="credit-names">Bill Olberson</p>
+
+  <h3 class="credit-titles">HUMAN RESOURCES ADMINISTRATOR</h3>
+  <p class="credit-names">Sierra Cunnigham</p>
+
+  <h3 class="credit-titles">FINANCE COORDINATOR</h3>
+  <p class="credit-names">Howard Phillips</p>
+
+  <h3 class="credit-titles">INTERNATION TRANSLATION DIRECTOR</h3>
+  <p class="credit-names">Todd Davis</p>
+
+  <h3 class="credit-titles">IT MANAGER</h3>
+  <p class="credit-names">Randy Mitchell</p>
+
+  <h3 class="credit-titles">ANIMAL HANDLER</h3>
+  <p class="credit-names">Anne Belton</p>
+
+  <h3 class="credit-titles">CATERING COORDINATOR</h3>
+  <p class="credit-names">Rick Meyers</p>
+
+  <h3 class="credit-titles">NIGHT FILMING COORDINATOR</h3>
+  <p class="credit-names">Mike Henson</p>
+
+  <h3 class="credit-titles">着 期 勝 開 階</h3>
+  <p class="credit-names">Takeo Watanabe</p>
+
+  <h3 class="credit-titles">QA MANAGER</h3>
+  <p class="credit-names">Wataru Takahashi</p>
+
+  <h3 class="credit-titles">PLAYTESTERS</h3>
+  <p class="credit-names">Stephen Pulk</p>
+  <p class="credit-names">Rick Gamble</p>
+  <p class="credit-names">Michael Black</p>
+
+  <h3 class="credit-titles">DOMESTIC DISPUTE HANDLER</h3>
+  <p class="credit-names">Christine Harmon</p>
+
+  <h3 class="credit-titles">ON SCENE MEDIC</h3>
+  <p class="credit-names">Hank Miller</p>
+
+  <h3 class="credit-titles">LOCATION SCOUTING</h3>
+  <p class="credit-names">Kevin Hooper</p>
+
+  <h3 class="credit-titles">RESIDENT PSYCHOLOGIST</h3>
+  <p class="credit-names">Charles Winston</p>
+
+  <h3 class="credit-titles">ARMCHAIR HISTORIAN</h3>
+  <p class="credit-names">Adam Goldberg</p>
+
+  <h3 class="credit-titles">REAL HISTORIAN</h3>
+  <p class="credit-names">Katie Greene</p>
+
+  <h3 class="credit-titles">KEG STAND OPERATOR</h3>
+  <p class="credit-names">Martin Rich</p>
+
+  <h3 class="credit-titles">CREDITS</h3>
+  <p class="credit-names">Zack White</p>
+
+  <h3 class="credit-titles">MADE WITH AN UNREAL ENGINE</h3>
+
+  <h3 class="credit-titles">BUS RENTAL PROVIDED BY</h3>
+
+  <h3 class="credit-titles">SPECIAL THANKS</h3>
+  <p class="credit-names">Stephen Johnson School for the Blind</p>
+  <p class="credit-names">Connor Stone Foundation</p>
+  <p class="credit-names">Mark Hamilton</p>
+  <p class="credit-names">Eric Chunn</p>
+  <p class="credit-names">Chris Scott</p>
+  <p class="credit-names">Viewers Like You</p>
+
+
+
+
+  <h3 class="credit-titles">Produced By Nakamura Gaming International LLC.</h3>
+  <p class="credit-names">©1997-2019</p>
+
+<p id="newGame">New Game</p>`;
 
   let enemy = {};
   let player = {};
@@ -111,14 +216,29 @@ $(document).ready(function () {
     if (roll === 20) {
       rollDice(tempDice);
       opponent.hp -= (roll * 2);
+      if (opponent.name === player.name) {
+        $('.charInfo').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000));
+      } else {
+        $('.monster').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000));
+      }
       isAlive(opponent);
       console.log(`${opponent.name} was critically hit for ${(roll * 2)}`);
     } else if ((roll - modifier) >= opponent.ac) {
       rollDice(tempDice);
       opponent.hp -= roll;
+      if (opponent.name === player.name) {
+        $('.charInfo').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000));
+      } else {
+        $('.monster').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000));
+      }
       isAlive(opponent);
       console.log(`${opponent.name} was hit for ${roll}`);
     } else {
+      if (opponent.name === player.name) {
+        $('.charInfo').prepend($(`<p class="damage"><span>MISS</span></p>`).fadeOut(2000));
+      } else {
+        $('.monster').prepend($(`<p class="damage"><span>MISS</span></p>`).fadeOut(2000));
+      }
       console.log(`miss`)
     }
     if (opponent.name === player.name) {
@@ -126,6 +246,7 @@ $(document).ready(function () {
       if ((parseInt($('#heroHp').attr('value')) / parseInt($('#heroHp').attr('max'))) < .25) {
         $('#heroHp').attr('class', "nes-progress is-error");
       }
+
     } else {
       $('#monsterHp').attr('value', opponent.hp).attr('max', opponent.maxHp);
       if ((parseInt($('#monsterHp').attr('value')) / parseInt($('#monsterHp').attr('max'))) < .25) {
@@ -168,16 +289,19 @@ $(document).ready(function () {
     roomScore[0].play();
     let monster = $('.monster');
     console.log('message', msg);
-    monster.fadeOut('slow', () => {
+    monster.fadeOut(5000, () => {
       newRoom(rooms[m]);
     });
   };
   function endGame() {
     $('#game').html('');
-    $('#game').attr('class', 'dead').append($('<h1>You have died</h1>'));
+    $('#game').attr('class', 'dead').append($(`<div class="credits">
+    <h1>You have died</h1>
+    ${credits}
+    </div>`));
   };
   function encounter() {
-    let randomMonster = rollDice('1d24');
+    let randomMonster = rollDice('1d5');
     console.log(randomMonster);
     $.ajax("/monsters", {
       type: "GET",
