@@ -62,7 +62,8 @@ $(document).ready(function () {
   let battleScore = $('#battleScore');
   // let randomMonster = Math.floor(Math.random() * 325);
   function text(msg) {
-    return $(`<p>${msg}</p>`);
+    let textMsg = $(`<p>${msg}</p>`);
+    return textMsg;
   }
   function randomBg() {
     let k = rollDice('1d5');
@@ -144,24 +145,29 @@ $(document).ready(function () {
     rollToHit(attacker);
   };
   function newRoom(msg) {
+    console.log('new room is called', msg);
+    console.log('options', options);
     $('#textBlock').html('');
-    $('#textBlock').append(text(msg)).append(options);
+    $('#textBlock').append($(`<p>${msg}</p>`));
+    $('#textBlock').append(options);
+    console.log($('#textBlock'));
     return m++;
   };
   function startBattle() {
     // msg = `The ${enemy.name} is upon you, prepare for battle!`;
-    msg = 'What do you want to do?'; // randomly have messages that describe the action - things like 'you circle the enemy looking for an opportunity' 
+    let fightMsg = 'What do you want to do?'; // randomly have messages that describe the action - things like 'you circle the enemy looking for an opportunity' 
     $('#textBlock').html('');
-    $('#textBlock').append(text(msg)).append(fight);
+    $('#textBlock').append(text(fightMsg)).append(fight);
   };
   function endBattle() {
     battleScore[0].pause();
     roomScore[0].play();
     let monster = $('.monster');
-    monster.fadeOut('slow');
-    $('#roomDisplay').html('');
-    newRoom(msg);
-  }
+    console.log('message', msg);
+    monster.fadeOut('slow', () => {
+      newRoom(rooms[m]);
+    });
+  };
   function endGame() {
     $('#game').html('');
     $('#game').attr('class', 'dead').append($('<h1>You have died</h1>'));
@@ -199,7 +205,8 @@ $(document).ready(function () {
       </div>`;
       $('#textBlock').html('');
       $('#roomDisplay').append($monster);
-      $('#textBlock').append(text(msg)).append(fight);
+      $('#textBlock').append(text(msg));
+      $('#textBlock').append(fight);
       battleScore[0].play();
       return enemy;
     });
@@ -218,7 +225,7 @@ $(document).ready(function () {
     if (event.which == 13) // enter key
       $('body').addClass('charSelect');
   });
-  $(document).on('click', '.selectChar', event => {
+  $(document).on('click', '.selectChar', function(event) {
     var id = $(this).data("id");
     console.log(id);
     $.ajax("/character/" + id, {
