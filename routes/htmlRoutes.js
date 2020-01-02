@@ -3,23 +3,29 @@ var fs = require("fs");
 
 module.exports = function(app) {
 //route used to create db once.  will need to go to route once, and then will be good for app functionality.
-  app.get("/bulk/create", function(req, res) {
+  // app.get("/", function(req, res) {
+  //   var rawData = fs.readFileSync("./models/char.json", "utf8");
+  //   var convertedData = JSON.parse(rawData);
+  //   console.log(convertedData);
+  //   db.Characters.bulkCreate(convertedData).then(function() {
+  //     res.end("Created");
+  //   });
+  // });
+
+  // Load index page
+  app.get("/", function(req, res) {
     var rawData = fs.readFileSync("./models/char.json", "utf8");
     var convertedData = JSON.parse(rawData);
     console.log(convertedData);
     db.Characters.bulkCreate(convertedData).then(function() {
-      res.end("Created");
-    });
-  });
 
-  // Load index page
-  app.get("/", function(req, res) {
-    db.Characters.findAll({}).then(function(data) {
-      res.render("index", {
-        msg: "Node Master 2",
-        characters: data
+      db.Characters.findAll({}).then(function(data) {
+        res.render("index", {
+          msg: "Node Master 2",
+          characters: data
+        });
+        // console.log(data);
       });
-      // console.log(data);
     });
   });
   app.get("/game.html", (req, res)=>{
