@@ -1,5 +1,48 @@
 $(document).ready(function () {
+  let barbarians =[
+    {
+    attack_name:"Controlled Swing",
+    attack_bonus: 0,
+    damage_dice:"2d6",
+    damage_bonus: 0
+  },
+  {
+    attack_name:"Wild Swing",
+    attack_bonus: 0,
+    damage_dice:"2d8",
+    damage_bonus: 0
+  }];
+let rogues = [
+  {
+    attack_name:"Imbrocatta",
+    attack_bonus: 0,
+    damage_dice:"2d8",
+    damage_bonus: 0
+  },
+  {
+    attack_name:"Back Stab",
+    attack_bonus: 0,
+    damage_dice:"2d8",
+    damage_bonus: 0
+  }
+];
+let wizards = [
+  {
+    attack_name:"Magic Missle",
+    attack_bonus: 0,
+    damage_dice:"3d4",
+    damage_bonus: 3
+
+  },
+  {
+    attack_name:"Fireball",
+    attack_bonus: 0,
+    damage_dice:"4d6",
+    damage_bonus: 0
+  }
+];
    const look = [
+    "placeholder",
     "As you scan the room, you can barely makeout the outline of a large wooden door on the opposite side of the chamber.",
 
     "The body of your foe lies before you. Bloodied and bruised, you look down and reflect on your own mortality.",
@@ -266,8 +309,13 @@ $(document).ready(function () {
   };
   function attack(player, enemy) {
     initiative();
-    rollToHit(defender);
-    rollToHit(attacker);
+    setTimeout(() => {
+      rollToHit(defender);
+    }, 300);
+    setTimeout(() => {
+      rollToHit(attacker);
+    }, 700);
+    
   };
   function newRoom(msg) {
     console.log('new room is called', msg);
@@ -289,7 +337,7 @@ $(document).ready(function () {
     roomScore[0].play();
     let monster = $('.monster');
     console.log('message', msg);
-    monster.fadeOut(5000, () => {
+    monster.fadeOut(3000, () => {
       newRoom(rooms[m]);
     });
   };
@@ -361,7 +409,6 @@ $(document).ready(function () {
   $(document).on('click', '#fight', event => {
     event.preventDefault();
     attack(player, enemy);
-    // $('#textBlock').append(`<p>${player.name}</p><p>${enemy.name} was hit for</p>`); need to display results of battle
     startBattle();
   });
   $(document).on('click', '#run', event => {
@@ -383,7 +430,7 @@ $(document).ready(function () {
   });
   $(document).on('click', '#lookAround', event => {
     $('#textBlock').html('');
-    $('#textBlock').append(text(lookAround)).append(options);
+    $('#textBlock').append(text(look[m])).append(options);
   });
   $(document).on('click', '#openDoor', event => {
     roomScore[0].pause();
