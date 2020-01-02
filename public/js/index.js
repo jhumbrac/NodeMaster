@@ -1,4 +1,32 @@
 $(document).ready(function () {
+  const look = [
+    "As you scan the room, you can barely makeout the outline of a large wooden door on the opposite side of the chamber.",
+
+    "The body of your foe lies before you. Bloodied and bruised, you look down and reflect on your own mortality.",
+
+    "There is blood everywhere. The fresh blood on the floor belongs to your vanquished foe, but there is dried blood on the wall. Who or what bled here before you?",
+ 
+    "As you look around in the new room your mind begins to wander. You try to remember anything that's happened before right now, but you cannot. You need to stop drinking.",
+
+    "You see another door before you. Of course...",
+
+    "You look around but cannot see the source of the voice. Maybe you imagined it."
+  ];
+  const rooms = [
+    "You wake up on a hard stone floor. Your head hurts, and you don't remember how you got here. A smoldering torch is the only source of light.",
+
+    "Where the hell did that come from? You need to be more careful.",
+
+    "Another room, another monster. What is this place?",
+
+    "You come to another door at a dead end. As you approach you hear faint rustling on the other side. Here we go again you think to yourself.",
+
+    "'Where am I?' you wonder. Why is there always a door, and why is there always a monster on the other side?",
+
+    "You hear a soft voice whisper in your ear - 'Win and you will be rewarded with riches beyond your wildest dreams. Lose and die."
+  ];
+
+
   let enemy = {};
   let player = {};
   let attacker = player;
@@ -11,8 +39,17 @@ $(document).ready(function () {
 
 
   // battle command variables
-  let msg;
-  let options;
+  let m = 0;
+  let msg = rooms[m];
+  let lookAround = look[m];
+  let options = `<label>
+  <input id="lookAround" type="radio" class="nes-radio" name="answer" checked />
+  <span>Look Around</span>
+  </label>
+  <label>
+  <input id="openDoor" type="radio" class="nes-radio" name="answer" checked />
+  <span>Open Door</span>
+  </label>`;
   let fight = `<label>
     <input id="fight" type="radio" class="nes-radio" name="answer" checked />
     <span>Fight</span>
@@ -24,7 +61,7 @@ $(document).ready(function () {
   let roomScore = $('#roomScore');
   let battleScore = $('#battleScore');
   // let randomMonster = Math.floor(Math.random() * 325);
-  function fightMsg(msg) {
+  function text(msg) {
     return $(`<p>${msg}</p>`);
   }
   function randomBg() {
@@ -50,9 +87,6 @@ $(document).ready(function () {
       return save = false;
     }
   };
-  function endBattle() {
-    console.log('monster has been defeated');
-  }
   function isAlive(opponent) {
     if (opponent.hp > 0) {
       console.log(`${opponent.name}'s hp: ${opponent.hp}`);
@@ -109,37 +143,31 @@ $(document).ready(function () {
     rollToHit(defender);
     rollToHit(attacker);
   };
-  function emptyRoom() {
-    msg = "You find yourself in an empty room. You can't remember how you got here, and you have no idea where 'here' is.";
-    options = `<label>
-    <input id="lookAround" type="radio" class="nes-radio" name="answer" checked />
-    <span>Look Around</span>
-    </label>
-    <label>
-    <input id="openDoor" type="radio" class="nes-radio" name="answer" checked />
-    <span>Open Door</span>
-    </label>`;
+  function newRoom(msg) {
     $('#textBlock').html('');
-    $('#textBlock').append(fightMsg(msg)).append(options);
+    $('#textBlock').append(text(msg)).append(options);
+    return m++;
   };
-  emptyRoom();
   function startBattle() {
     // msg = `The ${enemy.name} is upon you, prepare for battle!`;
     msg = 'What do you want to do?'; // randomly have messages that describe the action - things like 'you circle the enemy looking for an opportunity' 
     $('#textBlock').html('');
-    $('#textBlock').append(fightMsg(msg)).append(fight);
+    $('#textBlock').append(text(msg)).append(fight);
   };
-  function endBattle(){
-    battleScore.pause();
-    roomScore.play();
+  function endBattle() {
+    battleScore[0].pause();
+    roomScore[0].play();
+    let monster = $('.monster');
+    monster.fadeOut('slow');
     $('#roomDisplay').html('');
+    newRoom(msg);
   }
   function endGame() {
     $('#game').html('');
     $('#game').attr('class', 'dead').append($('<h1>You have died</h1>'));
   };
   function encounter() {
-    let randomMonster = rollDice('1d325');
+    let randomMonster = rollDice('1d322');
     console.log(randomMonster);
     $.ajax("/monsters", {
       type: "GET",
@@ -159,7 +187,7 @@ $(document).ready(function () {
         maxHp: selectedOne.hit_points,
         ac: selectedOne.armor_class,
         //img: `../img/${res.type}.png`
-        img: `../img/orc.png`
+        img: `../img/monsters/orc.png`
       };
       console.log("The Monster is " + JSON.stringify(enemy));
       msg = `The ${enemy.name} is upon you, prepare for battle!`;
@@ -171,7 +199,7 @@ $(document).ready(function () {
       </div>`;
       $('#textBlock').html('');
       $('#roomDisplay').append($monster);
-      $('#textBlock').append(fightMsg(msg)).append(fight);
+      $('#textBlock').append(text(msg)).append(fight);
       battleScore[0].play();
       return enemy;
     });
@@ -190,7 +218,7 @@ $(document).ready(function () {
     if (event.which == 13) // enter key
       $('body').addClass('charSelect');
   });
-  $(document).on('click', '.selectChar', function (event) {
+  $(document).on('click', '.selectChar', event => {
     var id = $(this).data("id");
     console.log(id);
     $.ajax("/character/" + id, {
@@ -199,13 +227,11 @@ $(document).ready(function () {
       window.location.replace('game.html');
     });
   });
-  $(document).on('click', '#lookAround', event=>{
-    msg = 'You find yourself in an empty room. Who lit these torches you wonder?';
+  $(document).on('click', '#lookAround', event => {
     $('#textBlock').html('');
-    $('#textBlock').append(fightMsg(msg));
-    emptyRoom();
+    $('#textBlock').append(text(lookAround)).append(options);
   });
-  $(document).on('click', '#openDoor', event=>{
+  $(document).on('click', '#openDoor', event => {
     roomScore[0].pause();
     randomBg();
     encounter();
@@ -229,8 +255,9 @@ $(document).ready(function () {
     console.log(player);
     return player;
   });
+
+  newRoom(msg);
 });
 
-// functions to end battle
 
 //saving throw

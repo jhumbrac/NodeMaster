@@ -13,35 +13,34 @@ p {
     margin: 1em 0 0;
 }
 #home {
-    background: url(../img/background-temp.jpg);
+    background: url(../img/rooms/titleBackground.png);
     background-size:cover;
     background-repeat:no-repeat;
     color:#fff;
     min-height: 100vh;
+    text-align: center;
 }
-#startGame {
+.titlePage {
     position: absolute;
-    bottom: 2em;
-    left: 50%;
+    bottom: 4em;
     margin: 0;
-    transform: translateX(-50%);
-    z-index: 2;
+    width: 100%;
+    z-index: 1;
+}
+#startGame{
     animation: fadeIn 1.5s;
     animation-iteration-count: infinite;
 }
 @keyframes fadeIn {
   0% { color: rgba(255,255,255,1) }
-  50% { color: rgba(255,255,255,.5) }
+  50% { color: rgba(255,255,255,.25) }
   100% { color: rgba(255,255,255,1) }
-}
-.titlePage {
-    padding: 12em 0 0 6em;
 }
 h1 {
     color: rgb(241, 90, 34);
     font-family: 'Yatra One', cursive;
-    font-size: 5em;
-    text-shadow: 0.05em 0.05em rgba(251,176,52, 1), 0.1em 0.1em rgba(246, 139, 51, 1);
+    font-size: 12vw;
+    text-shadow: 1px 1px 2px rgba(0,0,0,1), 0.05em 0.05em rgba(251,176,52, 1), .06em .06em 2px rgba(0,0,0,1), 0.1em 0.1em rgba(246, 139, 51, 1), .011em .011em 2px rgba(0,0,0,1);
 }
 .charSelect .charOverlay {
     display: block;
@@ -58,7 +57,7 @@ h1 {
     left: 50%;
     transform: translate(-50%,-50%);
     text-align: center;
-    z-index: 1;
+    z-index: 2;
 }
 .selectChar {
     width: calc(33.33% - 12px);
@@ -150,39 +149,39 @@ h1 {
     z-index: 1;
 }
 .room {
-    background: url(../img/room.png) center center no-repeat;
+    background: url(../img/rooms/room.png) center center no-repeat;
     background-size: cover;
 }
 .room1 {
-    background: url(../img/room1.jpg) center center no-repeat;
+    background: url(../img/rooms/room1.jpg) center center no-repeat;
     background-size: cover;
 }
 .room2 {
-    background: url(../img/room2.jpg) center center no-repeat;
+    background: url(../img/rooms/room2.jpg) center center no-repeat;
     background-size: cover;
 }
 .room3 {
-    background: url(../img/room3.jpg) center center no-repeat;
+    background: url(../img/rooms/room3.jpg) center center no-repeat;
     background-size: cover;
 }
 .room4 {
-    background: url(../img/room4.jpg) center center no-repeat;
+    background: url(../img/rooms/room4.jpg) center center no-repeat;
     background-size: cover;
 }
 .room5 {
-    background: url(../img/room5.jpg) center center no-repeat;
+    background: url(../img/rooms/room5.jpg) center center no-repeat;
     background-size: cover;
 }
 .treasureRoom {
-    background: url(../img/treasureRoom.jpg) center center no-repeat;
+    background: url(../img/rooms/treasureRoom.jpg) center center no-repeat;
     background-size:cover;
 }
 .outdoors {
-    background: url(../img/outdoors.jpg) center center no-repeat;
+    background: url(../img/rooms/outdoors.jpg) center center no-repeat;
     background-size:cover;
 }
 .dead {
-    background: url(../img/dead.jpg) center center no-repeat;
+    background: url(../img/rooms/dead.jpg) center center no-repeat;
     background-size:cover;
     height: 100vh;
     position:relative;
@@ -223,13 +222,8 @@ h1 {
 .monster h2 {
     font-size:2em;
     letter-spacing:1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,1);
 }
-/* .monster h2 {
-    color: black;
-    -webkit-text-fill-color: white;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-} */
 .monster img {
     height: 100%;
     float: right;
