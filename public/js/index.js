@@ -318,12 +318,9 @@ let wizards = [
     
   };
   function newRoom(msg) {
-    console.log('new room is called', msg);
-    console.log('options', options);
     $('#textBlock').html('');
     $('#textBlock').append($(`<p>${msg}</p>`));
     $('#textBlock').append(options);
-    console.log($('#textBlock'));
     return m++;
   };
   function startBattle() {
@@ -349,26 +346,23 @@ let wizards = [
     </div>`));
   };
   function encounter() {
-    let randomMonster = rollDice('1d41');
-    console.log(randomMonster);
+    let randomMonster = rollDice('1d80');
     $.ajax("/monsters", {
       type: "GET",
     }).then(function (monsters) {
-      console.log(monsters.map(o => o.size))
+      // For future development
       var tinyMonsters = monsters.filter(o => o.size === "Tiny");
       var smallMonsters = monsters.filter(o => o.size === "Small");
       var mediumMonsters = monsters.filter(o => o.size === "Medium");
       var largeMonsters = monsters.filter(o => o.size === "Large");
       var hugeMonsters = monsters.filter(o => o.size === "Huge");
 
-      console.log(tinyMonsters,smallMonsters,mediumMonsters,largeMonsters,hugeMonsters);
-      // console.log(res[1]);
-      let selectedOne = mediumMonsters[randomMonster]
+      let selectedOne = monsters[randomMonster]
       console.log("Monster size:  " + selectedOne.size);
-      let actionName = selectedOne.actions[1].name;
-    let attackBonus = selectedOne.actions[1].attack_bonus;
-    let damageDice = selectedOne.actions[1].damage[0].damage_dice;
-    let damageBonus = selectedOne.actions[1].damage[0].damage_bonus; 
+      let actionName = selectedOne.actions[0].name;
+      let attackBonus = selectedOne.actions[0].attack_bonus;
+      let damageDice = selectedOne.actions[0].damage[0].damage_dice;
+      let damageBonus = selectedOne.actions[0].damage[0].damage_bonus; 
     console.log("Monster Attack: "+actionName,attackBonus,damageDice,damageBonus);
       enemy = {
         name: selectedOne.name,
@@ -440,7 +434,6 @@ let wizards = [
   $.ajax("/api/selectedChar", {
     type: "GET"
   }).then(res => {
-    console.log(res);
     player = {
       name: res.name,
       str: res.str,
@@ -473,9 +466,6 @@ let wizards = [
         console.log('failed');
         break;
     }
-    console.log('1: ', player.att1);
-    console.log('2: ', player.att2)
-    
     return player;
   });
 
