@@ -98,6 +98,10 @@ $(document).ready(function () {
       }
       else {
         console.log(`${enemy.name} has been slain`);
+        // xp bar and += enemy.maxH
+        let heroXp = $('#heroXp').attr('value');
+        player.xp += enemy.maxHp;
+        $('#heroXp').attr('value', player.xp);
         endBattle();
       }
     }
@@ -173,14 +177,17 @@ $(document).ready(function () {
     $('#game').attr('class', 'dead').append($('<h1>You have died</h1>'));
   };
   function encounter() {
-    let randomMonster = rollDice('1d322');
+    let randomMonster = rollDice('1d24');
     console.log(randomMonster);
     $.ajax("/monsters", {
       type: "GET",
-    }).then(function (res) {
+    }).then(function (monsters) {
+      console.log(monsters.map(o => o.size))
+      var tinyMonsters = monsters.filter(o => o.size === "Tiny");
+      console.log(tinyMonsters);
       // console.log(res[1]);
-      let selectedOne = res[randomMonster]
-      console.log(selectedOne)
+      let selectedOne = tinyMonsters[randomMonster]
+      console.log("Monster size:  " + selectedOne.size)
       enemy = {
         name: selectedOne.name,
         str: selectedOne.strength,
@@ -257,7 +264,9 @@ $(document).ready(function () {
       chs: res.chs,
       hp: res.hp,
       ac: res.ac,
-      img: "../img/jpeg"
+      img: "../img/jpeg",
+      lvl: res.lvl,
+      xp: 0
     }
     console.log(player);
     return player;
