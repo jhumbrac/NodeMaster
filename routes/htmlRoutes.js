@@ -45,25 +45,6 @@ module.exports = function(app) {
     res.send(convertData)
   });
 
-  // app.get('/game.html', (req, res)=>{
-  //   res.render('game');
-  //   let rawChar = fs.readFileSync('selectedCharacter.json', 'utf8');
-  //   let char = JSON.parse(rawChar);
-  //   console.log(char);
-  // });
-
-
-  // app.get("/character/:category", function(req, res) {
-  //   db.Characters.findAll({
-  //     where: { category: req.params.category }
-  //   }).then(function(data) {
-  //     res.render("category", {
-  //       characters: data
-  //     });
-  //     console.log("Monsters are: " + data);
-  //   });
-  // });
-
   app.get("/character/:id", function(req, res) {
     db.Characters.findOne({
       where: { id: req.params.id }
