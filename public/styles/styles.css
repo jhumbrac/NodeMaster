@@ -42,7 +42,7 @@ p {
 h1 {
     color: rgb(241, 90, 34);
     font-family: 'Yatra One', cursive;
-    font-size: 12vw;
+    font-size: 10vw;
     text-shadow: 1px 1px 2px rgba(0,0,0,1), 0.05em 0.05em rgba(251,176,52, 1), .06em .06em 2px rgba(0,0,0,1), 0.1em 0.1em rgba(246, 139, 51, 1), .011em .011em 2px rgba(0,0,0,1);
 }
 .charSelect .charOverlay {
