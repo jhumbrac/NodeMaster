@@ -4,26 +4,26 @@ $(document).ready(function () {
     attack_name:"Controlled Swing",
     attack_bonus: 4,
     damage_dice:"2d6",
-    damage_bonus: 0
+    damage_bonus: 20
   },
   {
     attack_name:"Wild Swing",
     attack_bonus: 0,
     damage_dice:"2d8",
-    damage_bonus: 6
+    damage_bonus: 26
   }];
 let rogues = [
   {
     attack_name:"Imbrocatta",
     attack_bonus: 8,
     damage_dice:"1d8",
-    damage_bonus: 0
+    damage_bonus: 20
   },
   {
     attack_name:"Back Stab",
     attack_bonus: -4,
     damage_dice:"4d8",
-    damage_bonus: 10
+    damage_bonus: 30
   }
 ];
 let wizards = [
@@ -31,14 +31,14 @@ let wizards = [
     attack_name:"Magic Missle",
     attack_bonus: 2,
     damage_dice:"3d4",
-    damage_bonus: 3
+    damage_bonus: 23
 
   },
   {
     attack_name:"Fireball",
     attack_bonus: 0,
     damage_dice:"4d6",
-    damage_bonus: 0
+    damage_bonus: 20
   }
 ];
    const look = [
@@ -54,7 +54,15 @@ let wizards = [
 
     "You see another door before you. Of course...",
 
-    "You look around but cannot see the source of the voice. Maybe you imagined it."
+    "You look around but cannot see the source of the voice. Maybe you imagined it.",
+    
+    "Nothing much to look at, so you consider why you're here. You need to stop drinking.",
+   
+    "You find a mirror. You approach and look at your face. You are ugly. Maybe you deserve to be down here.",
+   
+    "You should probably stop looking around. You're going to hurt your neck.",
+
+    "You notice you're now in a chamber with a window. Moonlight streams in on you. Maybe you're getting close to the outside."
   ];
   const rooms = [
     "You wake up on a hard stone floor. Your head hurts, and you don't remember how you got here. A smoldering torch is the only source of light.",
@@ -67,7 +75,15 @@ let wizards = [
 
     "'Where am I?' you wonder. Why is there always a door, and why is there always a monster on the other side?",
 
-    "You hear a soft voice whisper in your ear - 'Win and you will be rewarded with riches beyond your wildest dreams. Lose and die."
+    "You hear a soft voice whisper in your ear - 'Win and you will be rewarded with riches beyond your wildest dreams. Lose and die.",
+
+    "That was... unpleasant. Oh well, you have nowhere else to go but forward.",
+  
+    "You're getting tired now. There is a mattress in this chamber, but it appears as though bad things have happened on it. You keep going.",
+    
+    "You keep killing things without remorse. You are a bad person.",
+  
+    "Is your life really worth killing all these living beings? You become depressed. It is not."
   ];
   const credits = `<h2>CREDITS</h2>
   
@@ -266,11 +282,11 @@ let wizards = [
     let damage_bonus;
     if (opponent.name === enemy.name) {
       attack_name = player[attack_type].attack_name;
-      //attack_bonus = player[attack_type].attack_bonus;
+      attack_bonus = player[attack_type].attack_bonus;
       damage_dice = player[attack_type].damage_dice;
-      //damage_bonus = player[attack_type].damage_bonus;
-      attack_bonus = 20;
-      damage_bonus = 50;
+      damage_bonus = player[attack_type].damage_bonus;
+      // attack_bonus = 20;
+      // damage_bonus = 50;
     } else {
       attack_name = enemy.attack_name;
       attack_bonus = enemy.attack_bonus;
@@ -308,7 +324,7 @@ let wizards = [
           $(this).remove();
         }));
       } else {
-        $('.monster').prepend($(`<p class="damage"><span>${(roll + damage_bonus)}</span></p>`).fadeOut(2000, function() { 
+        $('.monster').prepend($(`<p class="damage"><span>${(roll + damage_bonus)}</span></p>`).fadeOut(2000, function() {
           $(this).remove();
         }));
       }
@@ -370,6 +386,9 @@ let wizards = [
     $('#textBlock').html('');
     $('#textBlock').append($(`<p>${msg}</p>`));
     $('#textBlock').append(options);
+    if (m > 8) {
+      endGameWin();
+    }
     return m++;
   };
   function startBattle() {
