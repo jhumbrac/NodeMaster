@@ -2,7 +2,7 @@ $(document).ready(function () {
   let barbarians =[
     {
     attack_name:"Controlled Swing",
-    attack_bonus: 0,
+    attack_bonus: 4,
     damage_dice:"2d6",
     damage_bonus: 0
   },
@@ -10,26 +10,26 @@ $(document).ready(function () {
     attack_name:"Wild Swing",
     attack_bonus: 0,
     damage_dice:"2d8",
-    damage_bonus: 0
+    damage_bonus: 6
   }];
 let rogues = [
   {
     attack_name:"Imbrocatta",
-    attack_bonus: 0,
-    damage_dice:"2d8",
+    attack_bonus: 8,
+    damage_dice:"1d8",
     damage_bonus: 0
   },
   {
     attack_name:"Back Stab",
-    attack_bonus: 0,
-    damage_dice:"2d8",
-    damage_bonus: 0
+    attack_bonus: -4,
+    damage_dice:"4d8",
+    damage_bonus: 10
   }
 ];
 let wizards = [
   {
     attack_name:"Magic Missle",
-    attack_bonus: 0,
+    attack_bonus: 2,
     damage_dice:"3d4",
     damage_bonus: 3
 
@@ -184,7 +184,7 @@ let wizards = [
   let modifier = 0;
   let tempDice = '1d8';
   let roll = 0;
-
+  let attack_type;
 
   // battle command variables
   let m = 0;
@@ -243,15 +243,14 @@ let wizards = [
   };
   function isAlive(opponent) {
     if (opponent.hp > 0) {
-      console.log(`${opponent.name}'s hp: ${opponent.hp}`);
+      //console.log(`${opponent.name}'s hp: ${opponent.hp}`);
     } else {
       if (opponent === player) {
-        console.log(`${player.name} has been slain`);
+        //console.log(`${player.name} has been slain`);
         endGameDeath();
       }
       else {
-        console.log(`${enemy.name} has been slain`);
-        // xp bar and += enemy.maxH
+        // console.log(`${enemy.name} has been slain`);
         let heroXp = $('#heroXp').attr('value');
         player.xp += enemy.maxHp;
         $('#heroXp').attr('value', player.xp);
@@ -259,41 +258,75 @@ let wizards = [
       }
     }
   };
-  function rollToHit(opponent) {
+  function rollToHit(opponent, attack_type) {  // DAMAGE IS HAPPENING BACKWARDS?
+    let attack_name;
+    let attack_bonus;
+    let damage_dice;
+    let damage_bonus;
+    if (opponent.name === player.name) {
+      attack_name = opponent[attack_type].attack_name;
+      attack_bonus = opponent[attack_type].attack_bonus;
+      damage_dice = opponent[attack_type].damage_dice;
+      damage_bonus = opponent[attack_type].damage_bonus;
+    } else {
+      attack_name = opponent.attack_name;
+      attack_bonus = opponent.attack_bonus;
+      damage_dice = opponent.damage_dice;
+      damage_bonus = opponent.damage_bonus;
+    }
+    console.log(`opp is ${opponent.name}. Att_name: ${attack_name}, Bonus: ${attack_bonus}, Dice: ${damage_dice}, Dmg Bonus: ${damage_bonus}`);
     rollDice('1d20');
     if (roll === 20) {
-      rollDice(tempDice);
-      opponent.hp -= (roll * 2);
+      rollDice(damage_dice);
+      opponent.hp -= ((roll + damage_bonus) * 2);
+      console.log(`opp is ${opponent.name}. Att_name: ${attack_name}, Bonus: ${attack_bonus}, Dice: ${damage_dice}, Dmg Bonus: ${damage_bonus}, Roll: ${roll}, ${((roll + damage_bonus) * 2)}`);
+
       critSound[0].play();
       if (opponent.name === player.name) {
-        $('.charInfo').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000));
+        $('.charInfo').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000, function() {
+          $(this).remove();
+        }));
       } else {
-        $('.monster').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000));
+        $('.monster').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000, function() {
+          $(this).remove();
+        }));
       }
       isAlive(opponent);
       console.log(`${opponent.name} was critically hit for ${(roll * 2)}`);
-    } else if ((roll - modifier) >= opponent.ac) {
-      rollDice(tempDice);
-      opponent.hp -= roll;
+    } else if ((roll + attack_bonus) >= opponent.ac) {
+      console.log(`${opponent.name} ToHit: ${roll + attack_bonus}, roll: ${roll}, bonus: ${attack_bonus}`);
+      rollDice(damage_dice);
+      opponent.hp -= (roll + damage_bonus);
+      console.log(`opp is ${opponent.name}. Att_name: ${attack_name}, Bonus: ${attack_bonus}, Dice: ${damage_dice}, Dmg Bonus: ${damage_bonus}, Roll: ${roll}, ${(roll + damage_bonus)}`);
+
       hitSound[0].play();
       if (opponent.name === player.name) {
-        $('.charInfo').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000));
+        $('.charInfo').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000, function() {
+          $(this).remove();
+        }));
       } else {
-        $('.monster').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000));
+        $('.monster').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000, function() { 
+          $(this).remove();
+        }));
       }
       isAlive(opponent);
       console.log(`${opponent.name} was hit for ${roll}`);
     } else {
+      console.log(`${opponent.name} ToHit: ${roll + attack_bonus}, roll: ${roll}, bonus: ${attack_bonus}`);
       missSound[0].play();
       if (opponent.name === player.name) {
-        $('.charInfo').prepend($(`<p class="damage"><span>MISS</span></p>`).fadeOut(2000));
+        $('.charInfo').prepend($(`<p class="damage"><span>MISS</span></p>`).fadeOut(2000, function() {
+          $(this).remove();
+        }));
       } else {
-        $('.monster').prepend($(`<p class="damage"><span>MISS</span></p>`).fadeOut(2000));
+        $('.monster').prepend($(`<p class="damage"><span>MISS</span></p>`).fadeOut(2000, function() {
+          $(this).remove();
+        }));
       }
       console.log(`miss`)
     }
     if (opponent.name === player.name) {
-      console.log('player hp ', opponent.hp);
+      //console.log('player hp ', opponent.hp);
       $('#heroHp').attr('value', opponent.hp);
       if ((parseInt($('#heroHp').attr('value')) / parseInt($('#heroHp').attr('max'))) < .33) {
         $('#heroHp').attr('class', "nes-progress is-error");
@@ -301,7 +334,7 @@ let wizards = [
         $('#heroHp').attr('class', "nes-progress is-warning");
       }
     } else {
-      console.log('monster hp ', opponent.hp);
+      //console.log('monster hp ', opponent.hp);
       $('#monsterHp').attr('value', opponent.hp).attr('max', opponent.maxHp);
       if ((parseInt($('#monsterHp').attr('value')) / parseInt($('#monsterHp').attr('max'))) < .33) {
         $('#monsterHp').attr('class', "nes-progress is-error");
@@ -320,13 +353,13 @@ let wizards = [
       defender = player;
     }
   };
-  function attack(player, enemy) {
+  function attack(player, enemy, attack_type) {
     initiative();
     setTimeout(() => {
-      rollToHit(defender);
+      rollToHit(defender, attack_type);
     }, 300);
     setTimeout(() => {
-      rollToHit(attacker);
+      rollToHit(attacker, attack_type);
     }, 850);
     
   };
@@ -337,7 +370,7 @@ let wizards = [
     return m++;
   };
   function startBattle() {
-    let fightMsg = 'What do you want to do?'; // randomly have messages that describe the action - things like 'you circle the enemy looking for an opportunity'
+    let fightMsg = 'You circle your opponent looking for any weaknesses.'; // randomly have messages that describe the action - things like 'you circle the enemy looking for an opportunity'
     let battle = `<label>
   <input id="att1" type="radio" class="nes-radio" name="answer" checked />
   <span>${player.att1.attack_name}</span>
@@ -354,7 +387,6 @@ let wizards = [
     battleScore[0].pause();
     roomScore[0].play();
     let monster = $('.monster');
-    console.log('message', msg);
     monster.fadeOut(2000, () => {
       newRoom(rooms[m]);
     });
@@ -412,12 +444,12 @@ let wizards = [
       var hugeMonsters = monsters.filter(o => o.size === "Huge");
 
       let selectedOne = monsters[randomMonster]
-      console.log("Monster size:  " + selectedOne.size);
+      //console.log("Monster size:  " + selectedOne.size);
       let actionName = selectedOne.actions[0].name;
       let attackBonus = selectedOne.actions[0].attack_bonus;
       let damageDice = selectedOne.actions[0].damage[0].damage_dice;
       let damageBonus = selectedOne.actions[0].damage[0].damage_bonus; 
-    console.log("Monster Attack: "+actionName,attackBonus,damageDice,damageBonus);
+      //console.log("Monster Attack: "+actionName,attackBonus,damageDice,damageBonus);
       enemy = {
         name: selectedOne.name,
         str: selectedOne.strength,
@@ -436,7 +468,7 @@ let wizards = [
         damage_dice:damageDice,
         damage_bonus:damageBonus
       };
-      console.log("Monster Attack: "+enemy.attack_name,enemy.attack_bonus,enemy.damage_dice,enemy.damage_bonus);
+      //console.log("Monster Attack: "+enemy.attack_name,enemy.attack_bonus,enemy.damage_dice,enemy.damage_bonus);
 
       console.log("The Monster is " + JSON.stringify(enemy));
       msg = `The ${enemy.name} is upon you, prepare for battle!`;
@@ -456,12 +488,21 @@ let wizards = [
   };
   $(document).on('click', '#fight', event => {
     event.preventDefault();
-    attack(player, enemy);
     startBattle();
   });
   $(document).on('click', '#run', event => {
     event.preventDefault();
     endGameEscape();
+  });
+  $(document).on('click', '#att1', event => {
+    attack_type = 'att1';
+    event.preventDefault();
+    attack(player, enemy, attack_type);
+  });
+  $(document).on('click', '#att2', event => {
+    attack_type = 'att2';
+    event.preventDefault();
+    attack(player, enemy, attack_type);
   });
   $(document).on('click', '#newGame', event => {
     event.preventDefault();
@@ -473,7 +514,6 @@ let wizards = [
   });
   $(document).on('click', '.selectChar', function(event) {
     var id = $(this).data("id");
-    console.log(id);
     $.ajax("/character/" + id, {
       type: "GET",
     }).then((res) => {
