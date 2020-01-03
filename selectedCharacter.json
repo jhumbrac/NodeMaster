@@ -1,1 +1,1 @@
-{"name":"ganon","class":"wizard","race":"elf","str":10,"dex":15,"con":14,"int":15,"wis":13,"chs":8,"hp":14,"xp":0,"ac":12,"img":"../img/elf.png","isCharacter":true}
+{"name":"torgar","class":"barbarian","race":"dwarf","str":16,"dex":14,"con":15,"int":9,"wis":13,"chs":11,"hp":280,"xp":0,"ac":14,"img":"../img/dwarf.png","isCharacter":true}
