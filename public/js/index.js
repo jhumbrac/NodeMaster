@@ -43,7 +43,7 @@ let wizards = [
 ];
    const look = [
     "placeholder",
-    "As you scan the room, you can barely makeout the outline of a large wooden door on the opposite side of the chamber.",
+    "As you scan the room, you can barely make out the outline of a large wooden door on the opposite side of the chamber.",
 
     "The body of your foe lies before you. Bloodied and bruised, you look down and reflect on your own mortality.",
 
@@ -195,7 +195,7 @@ let wizards = [
   <span>Look Around</span>
   </label>
   <label>
-  <input id="openDoor" type="radio" class="nes-radio" name="answer" checked />
+  <input id="openDoor" type="radio" class="nes-radio" name="answer"/>
   <span>Open Door</span>
   </label>`;
   let fight = `<label>
@@ -203,11 +203,16 @@ let wizards = [
     <span>Fight</span>
     </label>
     <label>
-    <input id="run" type="radio" class="nes-radio" name="answer" checked />
+    <input id="run" type="radio" class="nes-radio" name="answer"/>
     <span>Run</span>
     </label>`;
+  let titleScore = $('#titleScore');
   let roomScore = $('#roomScore');
   let battleScore = $('#battleScore');
+
+  let critSound = $('#critSound');
+  let hitSound = $('#hitSound');
+  let missSound = $('#missSound');
   // let randomMonster = Math.floor(Math.random() * 325);
   function text(msg) {
     let textMsg = $(`<p>${msg}</p>`);
@@ -242,7 +247,7 @@ let wizards = [
     } else {
       if (opponent === player) {
         console.log(`${player.name} has been slain`);
-        endGame();
+        endGameDeath();
       }
       else {
         console.log(`${enemy.name} has been slain`);
@@ -259,6 +264,7 @@ let wizards = [
     if (roll === 20) {
       rollDice(tempDice);
       opponent.hp -= (roll * 2);
+      critSound[0].play();
       if (opponent.name === player.name) {
         $('.charInfo').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000));
       } else {
@@ -269,6 +275,7 @@ let wizards = [
     } else if ((roll - modifier) >= opponent.ac) {
       rollDice(tempDice);
       opponent.hp -= roll;
+      hitSound[0].play();
       if (opponent.name === player.name) {
         $('.charInfo').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000));
       } else {
@@ -277,6 +284,7 @@ let wizards = [
       isAlive(opponent);
       console.log(`${opponent.name} was hit for ${roll}`);
     } else {
+      missSound[0].play();
       if (opponent.name === player.name) {
         $('.charInfo').prepend($(`<p class="damage"><span>MISS</span></p>`).fadeOut(2000));
       } else {
@@ -285,15 +293,20 @@ let wizards = [
       console.log(`miss`)
     }
     if (opponent.name === player.name) {
+      console.log('player hp ', opponent.hp);
       $('#heroHp').attr('value', opponent.hp);
-      if ((parseInt($('#heroHp').attr('value')) / parseInt($('#heroHp').attr('max'))) < .25) {
+      if ((parseInt($('#heroHp').attr('value')) / parseInt($('#heroHp').attr('max'))) < .33) {
         $('#heroHp').attr('class', "nes-progress is-error");
+      } else if ((parseInt($('#heroHp').attr('value')) / parseInt($('#heroHp').attr('max'))) < .66) {
+        $('#heroHp').attr('class', "nes-progress is-warning");
       }
-
     } else {
+      console.log('monster hp ', opponent.hp);
       $('#monsterHp').attr('value', opponent.hp).attr('max', opponent.maxHp);
-      if ((parseInt($('#monsterHp').attr('value')) / parseInt($('#monsterHp').attr('max'))) < .25) {
+      if ((parseInt($('#monsterHp').attr('value')) / parseInt($('#monsterHp').attr('max'))) < .33) {
         $('#monsterHp').attr('class', "nes-progress is-error");
+      } else if ((parseInt($('#monsterHp').attr('value')) / parseInt($('#monsterHp').attr('max'))) < .66) {
+        $('#monsterHp').attr('class', "nes-progress is-warning");
       }
     }
 
@@ -314,7 +327,7 @@ let wizards = [
     }, 300);
     setTimeout(() => {
       rollToHit(attacker);
-    }, 700);
+    }, 850);
     
   };
   function newRoom(msg) {
@@ -324,26 +337,67 @@ let wizards = [
     return m++;
   };
   function startBattle() {
-    // msg = `The ${enemy.name} is upon you, prepare for battle!`;
-    let fightMsg = 'What do you want to do?'; // randomly have messages that describe the action - things like 'you circle the enemy looking for an opportunity' 
+    let fightMsg = 'What do you want to do?'; // randomly have messages that describe the action - things like 'you circle the enemy looking for an opportunity'
+    let battle = `<label>
+  <input id="att1" type="radio" class="nes-radio" name="answer" checked />
+  <span>${player.att1.attack_name}</span>
+  </label>
+  <label>
+  <input id="att2" type="radio" class="nes-radio" name="answer" />
+  <span>${player.att2.attack_name}</span>
+  </label>`;
     $('#textBlock').html('');
-    $('#textBlock').append(text(fightMsg)).append(fight);
+    // $('#textBlock').append(text(fightMsg)).append(fight);
+    $('#textBlock').append(text(fightMsg)).append(battle);
   };
   function endBattle() {
     battleScore[0].pause();
     roomScore[0].play();
     let monster = $('.monster');
     console.log('message', msg);
-    monster.fadeOut(3000, () => {
+    monster.fadeOut(2000, () => {
       newRoom(rooms[m]);
     });
+
   };
-  function endGame() {
+  function endGameWin() {
+    battleScore[0].pause();
+    titleScore[0].play();
+    $('#game').html('');
+    $('#game').attr('class', 'escape').append($(`<div class="credits">
+    <h1>You are victorious!</h1>
+    <p class="ending">You walk out of the arena covered in the blood of your foes and tormented by their dying screams. What was the point of this?</p>
+    ${credits}
+    </div>`));
+    setTimeout(() => {
+      $('.credits').addClass('scroll');
+    }, 6000);
+  };
+  function endGameEscape() {
+    battleScore[0].pause();
+    titleScore[0].play();
+    $('#game').html('');
+    $('#game').attr('class', 'escape').append($(`<div class="credits">
+    <h1>You run away</h1>
+    <p class="ending">Some people will call you a coward, but at least you were able to walk away... Coward</p>
+    ${credits}
+    </div>`));
+    setTimeout(() => {
+      $('.credits').addClass('scroll');
+    }, 6000);
+  };
+  function endGameDeath() {
+    battleScore[0].pause();
+    titleScore[0].play();
     $('#game').html('');
     $('#game').attr('class', 'dead').append($(`<div class="credits">
     <h1>You have died</h1>
+    <p class="ending">People will say you died valliantly, but what do you care? You're dead.</p>
     ${credits}
     </div>`));
+    setTimeout(() => {
+      $('.credits').addClass('scroll');
+    }, 7000);
   };
   function encounter() {
     let randomMonster = rollDice('1d80');
@@ -376,7 +430,7 @@ let wizards = [
         maxHp: selectedOne.hit_points,
         ac: selectedOne.armor_class,
         //img: `../img/${res.type}.png`
-        img: `../img/monsters/orc.png`,
+        img: `../img/monsters/${selectedOne.name}.png`,
         attack_name:actionName,
         attack_bonus: attackBonus,
         damage_dice:damageDice,
@@ -407,8 +461,12 @@ let wizards = [
   });
   $(document).on('click', '#run', event => {
     event.preventDefault();
-    endGame();
-  })
+    endGameEscape();
+  });
+  $(document).on('click', '#newGame', event => {
+    event.preventDefault();
+    window.location.replace('/');
+  });
   $(document).on("keydown", event => {
     if (event.which == 13) // enter key
       $('body').addClass('charSelect');

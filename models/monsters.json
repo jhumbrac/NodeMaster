@@ -6313,7 +6313,7 @@
     ],
     "url": "/api/monsters/240"
   },
-  {
+  {  
     "index": 65,
     "name": "Satyr",
     "size": "Medium",
@@ -7174,7 +7174,7 @@
   },
   {
     "index": 74,
-    "name": "Succubus/Incubus",
+    "name": "Succubus",
     "size": "Medium",
     "type": "fiend",
     "subtype": "shapechanger",
@@ -8203,7 +8203,7 @@
   },
   {
     "index": 83,
-    "name": "Will-o'-Wisp",
+    "name": "Will-o-Wisp",
     "size": "Tiny",
     "type": "undead",
     "subtype": null,

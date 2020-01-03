@@ -195,9 +195,14 @@ h1 {
     background: url(../img/rooms/treasureRoom.jpg) center center no-repeat;
     background-size:cover;
 }
-.outdoors {
+.escape {
     background: url(../img/rooms/outdoors.jpg) center center no-repeat;
     background-size:cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .dead {
     background: url(../img/rooms/dead.jpg) center center no-repeat;
@@ -211,24 +216,33 @@ h1 {
 }
 .credits {
     position: absolute;
-    top: 40%;
+    top: 35%;
     width: 100%;
     text-align: center;
     transition: top 20s !important;
     transition-timing-function: initial !important;
 }
 .credits h1 {
-    margin-bottom: 50vh;
+    margin-bottom:1em;
+}
+.ending {
+    margin:auto;
+    max-width:600px;
+    width:80%;
+}
+.credits h2 {
+    margin-top: 50vh;
 }
 .credit-titles {
     margin-top: 8em;
 }
 #newGame {
-    margin-top: 60vh;
+    font-size:2em;
+    margin-top: 70vh;
 }
 .credits.scroll {
     position: absolute;
-    top: -7500px;
+    top: -7900px;
 }
 #textBlock {
     background:black;
