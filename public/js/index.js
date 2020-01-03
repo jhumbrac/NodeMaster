@@ -188,7 +188,7 @@ let wizards = [
 
 
   <h3 class="credit-titles">Produced By Nakamura Gaming International LLC.</h3>
-  <p class="credit-names">©1997-2019</p>
+  <p class="credit-names">©1997-${new Date().getYear() + 1900}</p>
 
 <p id="newGame">New Game</p>`;
 
