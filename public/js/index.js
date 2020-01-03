@@ -43,6 +43,7 @@ let wizards = [
 ];
    const look = [
     "placeholder",
+
     "As you scan the room, you can barely make out the outline of a large wooden door on the opposite side of the chamber.",
 
     "The body of your foe lies before you. Bloodied and bruised, you look down and reflect on your own mortality.",
@@ -263,16 +264,18 @@ let wizards = [
     let attack_bonus;
     let damage_dice;
     let damage_bonus;
-    if (opponent.name === player.name) {
-      attack_name = opponent[attack_type].attack_name;
-      attack_bonus = opponent[attack_type].attack_bonus;
-      damage_dice = opponent[attack_type].damage_dice;
-      damage_bonus = opponent[attack_type].damage_bonus;
+    if (opponent.name === enemy.name) {
+      attack_name = player[attack_type].attack_name;
+      //attack_bonus = player[attack_type].attack_bonus;
+      damage_dice = player[attack_type].damage_dice;
+      //damage_bonus = player[attack_type].damage_bonus;
+      attack_bonus = 20;
+      damage_bonus = 50;
     } else {
-      attack_name = opponent.attack_name;
-      attack_bonus = opponent.attack_bonus;
-      damage_dice = opponent.damage_dice;
-      damage_bonus = opponent.damage_bonus;
+      attack_name = enemy.attack_name;
+      attack_bonus = enemy.attack_bonus;
+      damage_dice = enemy.damage_dice;
+      damage_bonus = enemy.damage_bonus;
     }
     console.log(`opp is ${opponent.name}. Att_name: ${attack_name}, Bonus: ${attack_bonus}, Dice: ${damage_dice}, Dmg Bonus: ${damage_bonus}`);
     rollDice('1d20');
@@ -283,11 +286,11 @@ let wizards = [
 
       critSound[0].play();
       if (opponent.name === player.name) {
-        $('.charInfo').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000, function() {
+        $('.charInfo').prepend($(`<p class="damage"><span>${((roll + damage_bonus) * 2)}</span></p>`).fadeOut(2000, function() {
           $(this).remove();
         }));
       } else {
-        $('.monster').prepend($(`<p class="damage"><span>${(roll * 2)}</span></p>`).fadeOut(2000, function() {
+        $('.monster').prepend($(`<p class="damage"><span>${((roll + damage_bonus) * 2)}</span></p>`).fadeOut(2000, function() {
           $(this).remove();
         }));
       }
@@ -301,11 +304,11 @@ let wizards = [
 
       hitSound[0].play();
       if (opponent.name === player.name) {
-        $('.charInfo').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000, function() {
+        $('.charInfo').prepend($(`<p class="damage"><span>${(roll + damage_bonus)}</span></p>`).fadeOut(2000, function() {
           $(this).remove();
         }));
       } else {
-        $('.monster').prepend($(`<p class="damage"><span>${roll}</span></p>`).fadeOut(2000, function() { 
+        $('.monster').prepend($(`<p class="damage"><span>${(roll + damage_bonus)}</span></p>`).fadeOut(2000, function() { 
           $(this).remove();
         }));
       }
@@ -387,7 +390,8 @@ let wizards = [
     battleScore[0].pause();
     roomScore[0].play();
     let monster = $('.monster');
-    monster.fadeOut(2000, () => {
+    monster.fadeOut(2000, function() {
+      $(this).remove();
       newRoom(rooms[m]);
     });
 
