@@ -300,7 +300,7 @@ h1 {
     display:block;
     height:0;
 }
-@media only screen and (max-width: 1000px){
+@media only screen and (max-width: 1000px) and (orientation: portrait) {
     html {
       transform: rotate(-90deg);
       transform-origin: left top;
@@ -314,4 +314,10 @@ h1 {
     body {
         font-size: .5em;
     }
-  }
+}  
+@media only screen and (max-width: 1000px){
+    body {
+        font-size: .5em;
+    }
+ }
+ 
