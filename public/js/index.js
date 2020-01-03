@@ -517,7 +517,7 @@ let wizards = [
     $.ajax("/character/" + id, {
       type: "GET",
     }).then((res) => {
-      window.location.replace('game.html');
+      window.location.replace('game');
     });
   });
   $(document).on('click', '#lookAround', event => {
@@ -544,7 +544,7 @@ let wizards = [
       ac: res.ac,
       img: "../img/jpeg",
       lvl: res.lvl,
-      xp: 0,
+      xp: 10,
     }
     switch ( res.class ){
       case 'barbarian':
