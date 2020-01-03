@@ -28,7 +28,7 @@ module.exports = function(app) {
       });
     });
   });
-  app.get("/game.html", (req, res)=>{
+  app.get("/game", (req, res)=>{
     let rawData = fs.readFileSync("selectedCharacter.json", "utf8");
     let Hero = JSON.parse(rawData);
     res.render('game', {Hero});
