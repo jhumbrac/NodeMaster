@@ -25,7 +25,7 @@ let rogues = [
     damage_dice:"2d8",
     damage_bonus: 0
   }
-]
+];
 let wizards = [
   {
     attack_name:"Magic Missle",
@@ -40,8 +40,9 @@ let wizards = [
     damage_dice:"4d6",
     damage_bonus: 0
   }
-]
+];
    const look = [
+    "placeholder",
     "As you scan the room, you can barely makeout the outline of a large wooden door on the opposite side of the chamber.",
 
     "The body of your foe lies before you. Bloodied and bruised, you look down and reflect on your own mortality.",
@@ -308,8 +309,13 @@ let wizards = [
   };
   function attack(player, enemy) {
     initiative();
-    rollToHit(defender);
-    rollToHit(attacker);
+    setTimeout(() => {
+      rollToHit(defender);
+    }, 300);
+    setTimeout(() => {
+      rollToHit(attacker);
+    }, 700);
+    
   };
   function newRoom(msg) {
     $('#textBlock').html('');
@@ -328,7 +334,7 @@ let wizards = [
     roomScore[0].play();
     let monster = $('.monster');
     console.log('message', msg);
-    monster.fadeOut(5000, () => {
+    monster.fadeOut(3000, () => {
       newRoom(rooms[m]);
     });
   };
@@ -397,7 +403,6 @@ let wizards = [
   $(document).on('click', '#fight', event => {
     event.preventDefault();
     attack(player, enemy);
-    // $('#textBlock').append(`<p>${player.name}</p><p>${enemy.name} was hit for</p>`); need to display results of battle
     startBattle();
   });
   $(document).on('click', '#run', event => {
@@ -419,7 +424,7 @@ let wizards = [
   });
   $(document).on('click', '#lookAround', event => {
     $('#textBlock').html('');
-    $('#textBlock').append(text(lookAround)).append(options);
+    $('#textBlock').append(text(look[m])).append(options);
   });
   $(document).on('click', '#openDoor', event => {
     roomScore[0].pause();
