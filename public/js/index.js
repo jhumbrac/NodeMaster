@@ -198,8 +198,6 @@ let wizards = [
   let defender = enemy;
   let save = false;
   let opponent; // don't remember what I was thinking here?
-  let modifier = 0;
-  let tempDice = '1d8';
   let roll = 0;
   let attack_type;
 
@@ -531,9 +529,9 @@ let wizards = [
     event.preventDefault();
     window.location.replace('/');
   });
-  $(document).on("keydown", event => {
-    if (event.which == 13) // enter key
-      $('body').addClass('charSelect');
+  $(document).on('click', '#startGame', event => {
+    event.preventDefault();
+    $('body').addClass('charSelect');
   });
   $(document).on('click', '.selectChar', function(event) {
     var id = $(this).data("id");
